@@ -22,9 +22,12 @@
 
 <body class="font-nunito">
 
+    @php
+    $user = Illuminate\Support\Facades\Auth::User();
+    @endphp
     <nav class="fixed flex top-0 w-full bg-blue-strath h-16 z-50">
-        <div class="bg-slate-300 h-full w-24">
-
+        <div class="h-full w-24 flex justify-center">
+            <img class="object-contain w-12" src="{{asset('assets/Starthmore-Logo-Colour-new.gif')}}" alt="">
         </div>
 
         <div class="text-white ml-5 md:flex flex-col justify-center hidden">
@@ -35,10 +38,10 @@
         <div class="flex items-center gap-x-3 absolute right-8 h-full">
             <div class="w-10 ">
                 <img class="rounded-full object-cover border-solid border-2 border-green-400"
-                    src={{asset('assets/profile_pictures/default-profile-photo.jpg')}} alt="">
+                    src={{asset('assets/profile_pictures/'.$user->profile_photo)}} alt="">
             </div>
 
-            <span class="text-white mr-3 text-sm font-light">Name1 Name2</span>
+            <span class="text-white mr-3 text-sm font-light">{{$user->first_name. " ".$user->last_name}}</span>
 
             <x-hamburger-menu />
 

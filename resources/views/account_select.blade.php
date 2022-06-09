@@ -15,7 +15,9 @@
 
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
 
-
+        <div class="">
+            <x-application-logo />
+        </div>
         <div
             class="w-[90%] sm:max-w-md mt-6 px-6 py-8 flex flex-col items-center gap-y-4 bg-white shadow-md overflow-hidden rounded-lg">
 

@@ -9,7 +9,7 @@ class UserType extends Model
 {
     use HasFactory;
 
-    public function roleList(){
+    public function userTypeList(){
         return $this->hasMany(UserTypeList::class);
     }
 }
