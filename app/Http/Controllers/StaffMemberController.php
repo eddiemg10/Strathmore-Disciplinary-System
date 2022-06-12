@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\StaffMember;
 use Illuminate\Http\Request;
+use App\Models\Classroom;
 
 class StaffMemberController extends Controller
 {
@@ -14,7 +15,13 @@ class StaffMemberController extends Controller
      */
     public function index()
     {
-        //
+        $classes = Classroom::all();
+
+        $data = [
+            "classrooms" => $classes,
+        ];
+
+        return view('admin.teachers', $data);
     }
 
     /**

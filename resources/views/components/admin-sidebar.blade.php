@@ -3,8 +3,9 @@
     <div class="flex flex-col mt-16 items-center w-full text-sm">
 
         <ul>
-            <li class="my-10"><a href="#">Teacher Management</a></li>
-            <li class="my-10"><a href="#">Parent Management</a></li>
+            <li class="my-10"><a href="{{route('admin')}}">Student Management</a></li>
+            <li class="my-10"><a href="{{route('admin.teachers')}}">Teacher Management</a></li>
+            <li class="my-10"><a href="{{route('admin.parents')}}">Parent Management</a></li>
             <li class="my-10"><a href="#">Discipline Management</a></li>
             <li class="my-10"><a href="#">Homework Management</a></li>
         </ul>
@@ -24,8 +25,9 @@
     <div class="flex flex-col mt-16 items-center w-full text-sm">
 
         <ul>
-            <li class="my-10"><a href="#">Teacher Management</a></li>
-            <li class="my-10"><a href="#">Parent Management</a></li>
+            <li class="my-10"><a href="{{route('admin')}}">Student Management</a></li>
+            <li class="my-10"><a href="{{route('admin.teachers')}}">Teacher Management</a></li>
+            <li class="my-10"><a href="{{route('admin.parents')}}">Parent Management</a></li>
             <li class="my-10"><a href="#">Discipline Management</a></li>
             <li class="my-10"><a href="#">Homework Management</a></li>
         </ul>

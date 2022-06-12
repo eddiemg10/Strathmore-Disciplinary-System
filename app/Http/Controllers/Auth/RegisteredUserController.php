@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\ParentStudent;
+use App\Models\Student;
 use App\Models\User;
+use App\Models\StaffMember;
 use App\Providers\RouteServiceProvider;
+use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
@@ -31,27 +36,117 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function storeStudent(Request $request)
+    {
+        $request->validate([
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'classroom' => ['required'],
+        ]);
+
+        $profile_photo = "default-profile-photo.jpg";
+
+        if($request->file('profile_photo')){
+            $file= $request->file('profile_photo');
+            $filename= date('YmdHi').Str::random(6);
+            $file-> move(public_path('public/assers/profile_pictures'), $filename);
+            $profile_photo= $filename;
+        }
+
+        try{
+            $student = Student::create([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'profile_photo' => $profile_photo,
+                'classroom' => $request->classroom,
+            ]);
+        }
+        catch(Exception $e){
+
+            return redirect()->route('admin')->with('error', ' Error! Student could not be added');
+        }
+        
+
+        // event(new Registered($student));
+
+
+
+        return redirect()->route('admin')->with('success', ' Student successfully added');
+    }
+
+    public function storeTeacher(Request $request)
     {
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'staff_number' => ['required', 'string', 'min:6', 'unique:staff_members']
         ]);
 
-        $user = User::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+        $profile_photo = "default-profile-photo.jpg";
+
+        if($request->file('profile_photo')){
+            $file= $request->file('profile_photo');
+            $filename= date('YmdHi').Str::random(6);
+            $file-> move(public_path('public/assers/profile_pictures'), $filename);
+            $profile_photo= $filename;
+        }
+
+        try{
+            $teacher = User::create([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'profile_photo' => $profile_photo,
+                'email' => $request->email,
+                'password' => Hash::make(Str::random(11)),
+            ]);
+
+            $staffMember = StaffMember::create([
+                'staff_number' => $request->staff_number,
+                'user_id' => $teacher->id,
+            ]);
+        }
+        catch(Exception $e){
+            return redirect()->route('admin')->with('error', ' Error! Teacher could not be added');
+        }
+        
+
+        return redirect()->route('admin.teachers')->with('success', ' Teacher successfully added');
+    }
+    
+    public function storeParent(Request $request)
+    {
+        $request->validate([
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'staff_number' => ['required', 'string', 'min:6', 'unique:staff_members']
         ]);
 
-        event(new Registered($user));
+        
+        $profile_photo = "default-profile-photo.jpg";
 
-        Auth::login($user);
+        try{
+            $parent = User::create([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'profile_photo' => $profile_photo,
+                'email' => $request->email,
+                'password' => Hash::make(Str::random(11)),
+            ]);
 
+            // $parentStudent = ParentStudent::create([
+            //     'user_id' => $parent->id,
+            //     'student_id' =>
+            // ]);
 
-        return redirect(RouteServiceProvider::HOME);
+        }
+        catch(Exception $e){
+            dd($e);
+            return redirect()->route('admin')->with('error', ' Error! Parent could not be added');
+        }
+        
+
+        return redirect()->route('admin.parents')->with('success', ' Parent successfully added');
     }
 }

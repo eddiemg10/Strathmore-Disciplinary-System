@@ -14,7 +14,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        
+
+        return view('admin.parents');
     }
 
     /**
@@ -81,5 +83,10 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function parents(){
+
+
     }
 }

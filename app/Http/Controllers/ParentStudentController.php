@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
-use App\Http\Requests\StoreStudentRequest;
-use App\Http\Requests\UpdateStudentRequest;
-use App\Models\Classroom;
+use App\Models\ParentStudent;
+use Illuminate\Http\Request;
 
-class StudentController extends Controller
+class ParentStudentController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -17,13 +14,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $classes = Classroom::all();
-
-        $data = [
-            "classrooms" => $classes,
-        ];
-
-        return view('admin.students', $data);
+        //
     }
 
     /**
@@ -39,10 +30,10 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreStudentRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreStudentRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -50,10 +41,10 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Student  $student
+     * @param  \App\Models\ParentStudent  $parentStudent
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show(ParentStudent $parentStudent)
     {
         //
     }
@@ -61,10 +52,10 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Student  $student
+     * @param  \App\Models\ParentStudent  $parentStudent
      * @return \Illuminate\Http\Response
      */
-    public function edit(Student $student)
+    public function edit(ParentStudent $parentStudent)
     {
         //
     }
@@ -72,11 +63,11 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateStudentRequest  $request
-     * @param  \App\Models\Student  $student
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\ParentStudent  $parentStudent
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateStudentRequest $request, Student $student)
+    public function update(Request $request, ParentStudent $parentStudent)
     {
         //
     }
@@ -84,10 +75,10 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Student  $student
+     * @param  \App\Models\ParentStudent  $parentStudent
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Student $student)
+    public function destroy(ParentStudent $parentStudent)
     {
         //
     }

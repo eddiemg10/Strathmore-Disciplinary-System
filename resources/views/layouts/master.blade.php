@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ Session::token() }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/helper.js') }}"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -20,7 +21,7 @@
     <title>{{$title ?? 'Strathmore School'}}</title>
 </head>
 
-<body class="font-nunito">
+<body class="font-nunito overflow-x-hidden">
 
     @php
     $user = Auth::User();

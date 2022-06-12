@@ -14,8 +14,6 @@ Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register')->middleware('is_admin');
 
-    Route::post('register', [RegisteredUserController::class, 'store'])->middleware('is_admin');;
-
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
 
@@ -35,6 +33,13 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+
+    Route::post('register-student', [RegisteredUserController::class, 'storeStudent'])->name('register.student')->middleware('is_admin');
+
+    Route::post('register-teacher', [RegisteredUserController::class, 'storeTeacher'])->name('register.teacher')->middleware('is_admin');
+
+    Route::post('register-parent', [RegisteredUserController::class, 'storeParent'])->name('register.parent')->middleware('is_admin');
+
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');
 

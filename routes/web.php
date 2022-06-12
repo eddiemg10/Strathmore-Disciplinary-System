@@ -4,7 +4,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\AccountSelectController;
-
+use App\Http\Controllers\StaffMemberController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UserController;
+use App\Models\StaffMember;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +24,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/clear-flash/{key}', function ($key) {
+    session()->forget($key);
+});
+
 Route::get('/dashboard', function () {
 
     $user = Auth::user();
@@ -35,9 +42,13 @@ Route::middleware(['auth'])->group(function(){
 
     Route::group(['prefix' => 'admin', 'middleware' => ['is_admin']], function(){
 
-        Route::get('students', function () {
-            return view('admin.students');
-        })->name('admin');
+        Route::get('students', [StudentController::class, 'index'])->name('admin');
+
+        Route::get('teachers', [StaffMemberController::class, 'index'])->name('admin.teachers');
+
+        Route::get('parents', [UserController::class, 'index'])->name('admin.parents');
+
+
     });
 
     Route::group(['prefix' => 'parent', 'middleware' => ['is_parent']], function(){
