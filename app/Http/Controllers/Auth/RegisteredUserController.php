@@ -7,6 +7,7 @@ use App\Models\ParentStudent;
 use App\Models\Student;
 use App\Models\User;
 use App\Models\StaffMember;
+use App\Models\UserTypeList;
 use App\Providers\RouteServiceProvider;
 use Exception;
 use Illuminate\Auth\Events\Registered;
@@ -105,6 +106,11 @@ class RegisteredUserController extends Controller
                 'staff_number' => $request->staff_number,
                 'user_id' => $teacher->id,
             ]);
+
+            $roles = UserTypeList::create([
+                'user_id' => $teacher->id,
+                'user_type_id' => $request->role,
+            ]);
         }
         catch(Exception $e){
             return redirect()->route('admin')->with('error', ' Error! Teacher could not be added');
@@ -123,7 +129,7 @@ class RegisteredUserController extends Controller
             'staff_number' => ['required', 'string', 'min:6', 'unique:staff_members']
         ]);
 
-        
+
         $profile_photo = "default-profile-photo.jpg";
 
         try{

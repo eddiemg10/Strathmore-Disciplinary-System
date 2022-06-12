@@ -47,7 +47,7 @@
                 id="profile_photo" accept="image/*" type="file">
         </div>
 
-        <!-- Classroom -->
+        <!-- Role -->
         <div class="mt-4">
             <x-label for="role" :value="__('User Type')" />
 
