@@ -28,18 +28,15 @@ Route::get('/dashboard', function () {
     return view('dashboard', ['user' => $user]);
 })->middleware(['auth'])->name('dashboard');
 
-Route::middleware(['auth'])->group(function(){
 
-    // Route::get('/', function () {
-    //     return view('welcome');
-    // });
+Route::middleware(['auth'])->group(function(){
 
     Route::get('/accountselect', [AccountSelectController::class, 'selectAccount']);
 
     Route::group(['prefix' => 'admin', 'middleware' => ['is_admin']], function(){
 
         Route::get('students', function () {
-            return view('admin.parents');
+            return view('admin.students');
         })->name('admin');
     });
 

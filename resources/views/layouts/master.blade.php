@@ -23,7 +23,7 @@
 <body class="font-nunito">
 
     @php
-    $user = Illuminate\Support\Facades\Auth::User();
+    $user = Auth::User();
     @endphp
     <nav class="fixed flex top-0 w-full bg-blue-strath h-16 z-50">
         <div class="h-full w-24 flex justify-center">
@@ -50,7 +50,9 @@
 
     </nav>
 
-    @yield('layout_content')
+    <div class="mt-16">
+        @yield('layout_content')
+    </div>
 </body>
 
 </html>
