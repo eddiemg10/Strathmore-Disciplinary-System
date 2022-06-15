@@ -58,7 +58,7 @@
                             </div>
 
                             <button id="edit-student" data-id="{{$student->id}}"
-                                class="bg-slate-100 py-5 px-3 w-full text-white rounded-md mt-6 mb-2 flex justify-center relative items-center gap-x-5 hover:shadow-md hover:cursor-pointer"></button>
+                                class="bg-slate-100 shadow-md py-5 px-3 w-full text-white rounded-md mt-6 mb-2 flex justify-center relative items-center gap-x-5 hover:shadow-md hover:cursor-pointer"></button>
 
                             <button id="delete-student" data-id="{{$student->id}}"
                                 class="bg-slate-100 shadow-md py-5 px-3 w-full text-white rounded-md flex justify-center relative items-center gap-x-5 hover:shadow-md hover:cursor-pointer">
