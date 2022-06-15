@@ -15,6 +15,10 @@ class Student extends Model
         'profile_photo',
     ];
     public function classrooms(){
-        return $this->hasMany(ClassroomStudent::class);
+        return $this->belongsToMany(Classroom::class, 'classroom_students');
+    }
+
+    public function parents(){
+        return $this->belongsToMany(User::class, 'parent_students');
     }
 }

@@ -30,20 +30,6 @@
             <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
         </div>
 
-
-        <!-- Children -->
-        <div class="mt-4">
-            <x-label for="role" :value="__('Children')" />
-
-            <select id="children" name="children" multiple
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block w-full p-2.5">
-                <option value="3">Teacher</option>
-                <option value="2">Administrator</option>
-
-            </select>
-        </div>
-
-
         <div class="flex items-center justify-end mt-4">
 
 

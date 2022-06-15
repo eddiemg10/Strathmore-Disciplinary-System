@@ -6,6 +6,8 @@ use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Classroom;
+use App\Models\User;
+
 
 class StudentController extends Controller
 {
@@ -18,9 +20,12 @@ class StudentController extends Controller
     public function index()
     {
         $classes = Classroom::all();
+        $students = Student::all()->take(30);
 
         $data = [
             "classrooms" => $classes,
+            "students" =>$students,
+            'student' => Student::find(1),
         ];
 
         return view('admin.students', $data);
@@ -53,9 +58,15 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show($studentID)
     {
-        //
+        $student = Student::find($studentID);
+        $data = [
+            'student' => $student,
+        ];
+
+
+        return view("student.show", $data);
     }
 
     /**

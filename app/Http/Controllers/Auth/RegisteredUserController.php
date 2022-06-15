@@ -126,7 +126,6 @@ class RegisteredUserController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'staff_number' => ['required', 'string', 'min:6', 'unique:staff_members']
         ]);
 
 
@@ -141,10 +140,10 @@ class RegisteredUserController extends Controller
                 'password' => Hash::make(Str::random(11)),
             ]);
 
-            // $parentStudent = ParentStudent::create([
-            //     'user_id' => $parent->id,
-            //     'student_id' =>
-            // ]);
+           $userTypeList = UserTypeList::create([
+                'user_id' => $parent->id,
+                'user_type_id' => 1,
+           ]);
 
         }
         catch(Exception $e){

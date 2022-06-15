@@ -48,4 +48,8 @@ class User extends Authenticatable
     public function roles(){
         return $this->hasMany(UserTypeList::class);
     }
+
+    public function children(){
+        return $this->belongsToMany(Student::class, 'parent_students');
+    }
 }

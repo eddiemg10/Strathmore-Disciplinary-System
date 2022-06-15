@@ -16,15 +16,75 @@
         </div>
     </div>
 
-    <div class="flex gap-x-5 w-full">
-        <div class="w-[30%] bg-white py-20">
+    <div class="flex flex-wrap lg:flex-nowrap gap-x-5 gap-y-10 w-full">
+
+        {{-- Student search --}}
+        <div class="flex grow min-w-[18rem] flex-col bg-white py-20">
+            <div class="px-5">
+                @foreach ($students as $student)
+                <div id="{{$student->id}}"
+                    class='student text-xs bg-blue-50 my-5 xmd:bg-red-100 hover:cursor-pointer text-center py-2'>
+                    {{$student->first_name." ".$student->last_name}}
+
+                </div>
+
+                @endforeach
+            </div>
 
         </div>
 
-        <div class="w-[70%] bg-white py-20">
-            Student Results Component
+
+        {{-- search results --}}
+        <div id="search-result" class="flex grow-[3] basis-[532px]  flex-col items-center bg-white py-10">
+
+            <div class="animate-pulse w-full">
+                <div class="flex flex-col items-center w-full">
+                    <h1 class="text-3xl text-zinc-600">No search results</h1>
+
+                    <div class="bg-slate-100 w-[90%] h-[2px] mt-5"></div>
+
+                    <div class="mt-20 w-full flex flex-col lg:flex-row gap-y-5 lg:items-center">
+                        <div class="w-full lg:w-[50%] px-8">
+                            <div class="w-60 rounded-md shadow-lg h-48 bg-slate-100">
+
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-[50%] px-5 flex flex-col gap-y-5 items-center">
+
+                            <div class="bg-slate-100 shadow-xl  text-center w-full h-28 rounded-md py-5">
+
+
+                            </div>
+
+                            <button id="edit-student" data-id="{{$student->id}}"
+                                class="bg-slate-100 py-5 px-3 w-full text-white rounded-md mt-6 mb-2 flex justify-center relative items-center gap-x-5 hover:shadow-md hover:cursor-pointer"></button>
+
+                            <button id="delete-student" data-id="{{$student->id}}"
+                                class="bg-slate-100 shadow-md py-5 px-3 w-full text-white rounded-md flex justify-center relative items-center gap-x-5 hover:shadow-md hover:cursor-pointer">
+                            </button>
+
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="bg-slate-100 w-[90%] h-[2px] mt-16"></div>
+
+                <div class="w-full px-10">
+                    <div class="w-full bg-slate-100 shadow-md h-32 px-5 mt-24 flex justify-center">
+
+                    </div>
+                </div>
+            </div>
+
         </div>
+
     </div>
+</div>
 
 </div>
 
@@ -43,6 +103,14 @@
             $("#modal-card").addClass('hidden');
             resumeScroll();
         });
+
+        $(".student").click(function(e){
+
+            $.get("/admin/students/"+$(this).attr('id'), function(data, status){
+                $("#search-result").html(data);
+                location.href = "#search-result"; 
+            });
+        })
 
      });
 </script>
