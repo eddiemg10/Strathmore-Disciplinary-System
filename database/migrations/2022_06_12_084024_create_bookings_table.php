@@ -19,6 +19,7 @@ class CreateBookingsTable extends Migration
             $table->foreignId('staff_member_id')->constrained();
             $table->string('offence');
             $table->string('period');
+            $table->foreignId('classroom_id')->constrained();
             $table->tinyInteger('assessment')->nullable();
             $table->timestamps();
             $table->foreignId('updated_by')->constrained('staff_members')->nullable();

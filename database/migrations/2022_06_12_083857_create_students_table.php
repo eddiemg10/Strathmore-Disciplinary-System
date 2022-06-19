@@ -18,6 +18,7 @@ class CreateStudentsTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('profile_photo')->default('default-profile-photo.jpg');
+            $table->foreignId('classroom_id')->constrained();
             $table->timestamps();
         });
     }
