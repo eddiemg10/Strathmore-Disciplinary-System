@@ -16,9 +16,9 @@
     </div>
 
     <div class="flex gap-x-5 w-full">
-        <div class="w-[30%] bg-white py-20">
-
-        </div>
+        
+        <x-admin-searchbar title="Find Parent" title-2="User ID" type="parent"/>
+        
 
         <div class="w-[70%] bg-white py-20">
             Parent Results Component

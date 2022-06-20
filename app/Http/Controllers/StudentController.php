@@ -7,6 +7,8 @@ use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Classroom;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 
 class StudentController extends Controller
@@ -101,5 +103,76 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         //
+    }
+
+    public function studentSearchAction(Request $request) 
+    {
+        if($request->ajax())
+        {
+            $output = '';
+            $query = $request->get('query');
+            $classroom = $request->get('classroom');
+
+            if($query != '')
+            {
+            //  $data = DB::table('students')
+            //    ->Where('first_name', 'like', '%'.$query.'%')
+            //    ->orWhere('last_name', 'like', '%'.$query.'%')
+            //    ->orderBy('id', 'asc')
+            //    ->get();
+
+                $data = DB::table('students')
+                ->join('classrooms', 'students.classroom_id', '=', 'classrooms.id')
+                ->select('classrooms.id',
+                        'students.id', 
+                        'students.first_name', 
+                        'students.last_name', 
+                        'classrooms.name')
+                 
+                        
+                ->Where('students.first_name', 'like', ''.$query.'%')
+                ->Where('students.last_name', 'like', ''.$query.'%')
+                ->Where('classrooms.id','=', ''.$classroom.'%')
+                ->orderBy('students.id')
+                ->get();
+                
+            }
+            // ->join(//Google Eloquent Query Builder joins)
+            //   ->where('first_name', 'like', '%'.$query.'%')
+            else
+            {
+            $data = DB::table('students')
+                ->orderBy('id', 'desc')
+                ->get();
+            }
+            $total_row = $data->count();
+            if($total_row > 0)
+            {
+            foreach($data as $row)
+            {
+                $output .= '
+                <tr class="p-4 text-left text-xs w-1/2 text-xl" id="'.$row->id.'">
+                <td class="pl-4 text-center py-2">'.$row->id.'</td>
+                <td class="pl-4 py-2 text-center">'.$row->first_name. ' ' .$row->last_name.'</td>
+                <td class="pl-4 py-2 text-center">'.$row->name.'</td>
+                </tr>
+                ';
+            }
+            }
+            else
+            {
+            $output = '
+            <tr class="text-xs">
+                <td class="p-8" align="center" colspan="5">No Data Found</td>
+            </tr>
+            ';
+            }
+            $data = array(
+            'table_data'  => $output,
+            'total_data'  => $total_row
+            );
+
+            echo json_encode($data);
+            }
     }
 }

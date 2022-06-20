@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
 use App\Http\Controllers\AccountSelectController;
 use App\Http\Controllers\StaffMemberController;
 use App\Http\Controllers\StudentController;
@@ -44,12 +43,15 @@ Route::middleware(['auth'])->group(function(){
 
         Route::get('students', [StudentController::class, 'index'])->name('admin');
 
-        Route::get('students/{id}', [StudentController::class, 'show']);
-
         Route::get('teachers', [StaffMemberController::class, 'index'])->name('admin.teachers');
 
         Route::get('parents', [UserController::class, 'index'])->name('admin.parents');
 
+        Route::get('/search-student', [StudentController::class, 'studentSearchAction'])->name('student.action');
+
+        Route::get('/search-parent', [UserController::class, 'parentSearchAction'])->name('parent.action');
+
+        Route::get('/search-teacher', [StaffMemberController::class, 'teacherSearchAction'])->name('teacher.action');
 
     });
 

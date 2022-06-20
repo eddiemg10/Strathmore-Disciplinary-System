@@ -16,22 +16,9 @@
         </div>
     </div>
 
-    <div class="flex flex-wrap lg:flex-nowrap gap-x-5 gap-y-10 w-full">
+    <div class="flex flex-wrap lg:flex-nowrap gap-x-5 sm:gap-y-10 w-full">
 
-        {{-- Student search --}}
-        <div class="flex grow min-w-[18rem] flex-col bg-white py-20">
-            <div class="px-5">
-                @foreach ($students as $student)
-                <div id="{{$student->id}}"
-                    class='student text-xs bg-blue-50 my-5 xmd:bg-red-100 hover:cursor-pointer text-center py-2'>
-                    {{$student->first_name." ".$student->last_name}}
-
-                </div>
-
-                @endforeach
-            </div>
-
-        </div>
+        <x-admin-searchbar title="Find Student" title2="Admission Number" :classrooms="$classrooms" type="student"/>
 
 
         {{-- search results --}}

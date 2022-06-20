@@ -16,9 +16,8 @@
     </div>
 
     <div class="flex gap-x-5 w-full">
-        <div class="w-[30%] bg-white py-20">
 
-        </div>
+        <x-admin-searchbar title="Find Teacher" title2="Staff Number" type="teacher"/>
 
         <div class="w-[70%] bg-white py-20">
             Teacher Results Component
