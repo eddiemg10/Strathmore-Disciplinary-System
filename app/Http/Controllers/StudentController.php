@@ -141,10 +141,18 @@ class StudentController extends Controller
             //   ->where('first_name', 'like', '%'.$query.'%')
             else
             {
-            $data = DB::table('students')
-                ->orderBy('id', 'desc')
+                $data = DB::table('students')
+                ->join('classrooms', 'students.classroom_id', '=', 'classrooms.id')
+                ->select('classrooms.id',
+                        'students.id', 
+                        'students.first_name', 
+                        'students.last_name', 
+                        'classrooms.name')
+                ->orderBy('students.id')
+                ->Where('classrooms.id','=', ''.$classroom.'%')
                 ->get();
             }
+            
             $total_row = $data->count();
             if($total_row > 0)
             {
