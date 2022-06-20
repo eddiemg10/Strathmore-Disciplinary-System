@@ -115,7 +115,7 @@ class UserController extends Controller
                  
                 ->Where('user_type_id', '=', '1')      
                 ->Where('first_name', 'like', ''.$query.'%')
-                ->Where('last_name', 'like', ''.$query.'%')
+                ->orWhere('last_name', 'like', ''.$query.'%')
                 ->orderBy('users.id')
                 ->get();
                 

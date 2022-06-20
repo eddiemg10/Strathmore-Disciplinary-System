@@ -116,7 +116,7 @@ class StaffMemberController extends Controller
                     'user_type_lists.user_type_id')
              
             ->Where('first_name', 'like', ''.$query.'%')
-            ->Where('last_name', 'like', ''.$query.'%')
+            ->orWhere('last_name', 'like', ''.$query.'%')
             ->Where('user_type_id', '=', '3')      
 
             ->orderBy('id')
