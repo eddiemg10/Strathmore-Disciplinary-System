@@ -5,7 +5,8 @@
 <div class="flex w-[100vw]">
     {{-- SideBar Component goes here --}}
     <div class="md:w-[20%]">
-        <x-admin-sidebar />
+        @yield('sidebar')
+ 
     </div>
 
     {{-- Main Div stuff will go here --}}
@@ -13,7 +14,8 @@
         @yield('content')
 
 
-        @endsection
     </div>
 
 </div>
+
+@endsection

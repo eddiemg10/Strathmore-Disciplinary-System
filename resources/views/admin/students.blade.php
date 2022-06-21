@@ -1,4 +1,7 @@
 @extends("layouts.adminLayout")
+@section('sidebar')
+<x-admin-sidebar focus="student"/>
+@endsection
 @section('content')
 
 <div class="flex flex-col items-center pb-40 px-5 md:px-20 gap-y-20">

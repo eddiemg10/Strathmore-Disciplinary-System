@@ -1,30 +1,64 @@
 {{-- Navbar for Large screens --}}
 <div id="main-nav" class="pt-20 z-40 hidden w-[50%] top-0 left-0 md:flex md:w-[20%] fixed h-[100vh] bg-slate-100">
     <div class="flex flex-col mt-16 items-center w-full text-sm my-8">
-
         <ul class="text-blue-strath space-y-4">
-            <div class="hover:bg-[#00447D] hover:text-white flex flex-row h-16 items-center space-x-4 text-lg rounded">
-                <i class="fa-solid fa-user-graduate ml-4"></i>
-                <li class="pr-4"><a href="{{route('admin')}}">Student Management</a></li>
-            </div>
-            <div class="hover:bg-[#00447D] hover:text-white flex flex-row h-16 items-center space-x-4 text-lg rounded">
-                <i class="fa-solid fa-user-tie ml-4"></i>
-                <li class="pr-4"><a href="{{route('admin.teachers')}}">Teacher Management</a></li>
-            </div>
-            <div class="hover:bg-[#00447D] hover:text-white flex flex-row h-16 items-center space-x-4 text-lg rounded">
-                <i class="fa-solid fa-children ml-4"></i>
-                <li class="hover:bg-[#00447D] hover:text-white pr-4"><a href="{{route('admin.parents')}}">Parent Management</a></li>
-            </div>
-            <div class="hover:bg-[#00447D] hover:text-white flex flex-row h-16 items-center space-x-4 text-lg rounded">
-                <i class="fa-solid fa-check-to-slot ml-4"></i>
-                <li class="pr-4"><a href="#">Discipline Management</a></li>
-            </div>
-            <div class="hover:bg-[#00447D] hover:text-white flex flex-row h-16 items-center space-x-4 text-lg rounded">
-                <i class="fa-solid fa-book ml-4"></i>
-                <li class="pr-4"><a href="#">Homework Management</a></li>
-            </div>
-            
+            @if($focus == 'student')
+                <div class="bg-[#00447D] text-white flex flex-row h-16 items-center space-x-4 text-lg rounded drop-shadow">
+                    <i class="fa-solid fa-user-graduate ml-4"></i>
+                    <li class="pr-4"><a href="{{route('admin')}}">Student Management</a></li>
+                </div>
+            @else
+                <div class="hover:text-[#A11111] flex flex-row h-16 items-center space-x-4 text-lg rounded drop-shadow">
+                    <i class="fa-solid fa-user-graduate ml-4"></i>
+                    <li class="pr-4"><a href="{{route('admin')}}">Student Management</a></li>
+                </div>
+            @endif
+            @if($focus == 'teacher')
+                <div class="bg-[#00447D] text-white flex flex-row h-16 items-center space-x-4 text-lg rounded drop-shadow">
+                    <i class="fa-solid fa-user-tie ml-4"></i>
+                    <li class="pr-4"><a href="{{route('admin.teachers')}}">Teacher Management</a></li>
+                </div>
+            @else
+                <div class="hover:text-[#A11111] flex flex-row h-16 items-center space-x-4 text-lg rounded drop-shadow">
+                    <i class="fa-solid fa-user-tie ml-4"></i>
+                    <li class="pr-4"><a href="{{route('admin.teachers')}}">Teacher Management</a></li>
+                </div>
+            @endif
+            @if($focus == 'parent')
+                <div class="bg-[#00447D] text-white flex flex-row h-16 items-center space-x-4 text-lg rounded drop-shadow">
+                    <i class="fa-solid fa-children ml-4"></i>
+                    <li class=" pr-4"><a href="{{route('admin.parents')}}">Parent Management</a></li>
+                </div>
+            @else
+                <div class="hover:text-[#A11111] flex flex-row h-16 items-center space-x-4 text-lg rounded drop-shadow">
+                    <i class="fa-solid fa-children ml-4"></i>
+                    <li class="pr-4"><a href="{{route('admin.parents')}}">Parent Management</a></li>
+                </div>
+            @endif
+            @if($focus == 'discipline')
+                <div class="bg-[#00447D] text-white flex flex-row h-16 items-center space-x-4 text-lg rounded drop-shadow">
+                    <i class="fa-solid fa-check-to-slot ml-4"></i>
+                    <li class="pr-4"><a href="#">Discipline Management</a></li>
+                </div>
+            @else
+                <div class="hover:text-[#A11111] flex flex-row h-16 items-center space-x-4 text-lg rounded drop-shadow">
+                    <i class="fa-solid fa-check-to-slot ml-4"></i>
+                    <li class="pr-4"><a href="#">Discipline Management</a></li>
+                </div>
+            @endif
+            @if($focus == 'homework')
+                <div class="bg-[#00447D] text-white flex flex-row h-16 items-center space-x-4 text-lg rounded drop-shadow">
+                    <i class="fa-solid fa-book ml-4"></i>
+                    <li class="pr-4"><a href="#">Homework Management</a></li>
+                </div>
+            @else
+                <div class="hover:text-[#A11111] flex flex-row h-16 items-center space-x-4 text-lg rounded drop-shadow">
+                    <i class="fa-solid fa-book ml-4"></i>
+                    <li class="pr-4"><a href="#">Homework Management</a></li>
+                </div>
+            @endif     
         </ul>
+        
 
     </div>
 
