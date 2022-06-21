@@ -3,25 +3,25 @@
     <div class="flex flex-col mt-16 items-center w-full text-sm my-8">
 
         <ul class="text-blue-strath space-y-4">
-            <div class="flex flex-row h-16 items-center space-x-4 text-lg">
-                <i class="fa-solid fa-user-graduate"></i>
-                <li class=""><a href="{{route('admin')}}">Student Management</a></li>
+            <div class="hover:bg-[#00447D] hover:text-white flex flex-row h-16 items-center space-x-4 text-lg rounded">
+                <i class="fa-solid fa-user-graduate ml-4"></i>
+                <li class="pr-4"><a href="{{route('admin')}}">Student Management</a></li>
             </div>
-            <div class="flex flex-row h-16 items-center space-x-4 text-lg ">
-                <i class="fa-solid fa-user-tie"></i>
-                <li class=""><a href="{{route('admin.teachers')}}">Teacher Management</a></li>
+            <div class="hover:bg-[#00447D] hover:text-white flex flex-row h-16 items-center space-x-4 text-lg rounded">
+                <i class="fa-solid fa-user-tie ml-4"></i>
+                <li class="pr-4"><a href="{{route('admin.teachers')}}">Teacher Management</a></li>
             </div>
-            <div class="flex flex-row h-16 items-center space-x-4 text-lg">
-                <i class="fa-solid fa-children"></i>
-                <li class=""><a href="{{route('admin.parents')}}">Parent Management</a></li>
+            <div class="hover:bg-[#00447D] hover:text-white flex flex-row h-16 items-center space-x-4 text-lg rounded">
+                <i class="fa-solid fa-children ml-4"></i>
+                <li class="hover:bg-[#00447D] hover:text-white pr-4"><a href="{{route('admin.parents')}}">Parent Management</a></li>
             </div>
-            <div class="flex flex-row h-16 items-center space-x-4 text-lg">
-                <i class="fa-solid fa-check-to-slot"></i>
-                <li class=""><a href="#">Discipline Management</a></li>
+            <div class="hover:bg-[#00447D] hover:text-white flex flex-row h-16 items-center space-x-4 text-lg rounded">
+                <i class="fa-solid fa-check-to-slot ml-4"></i>
+                <li class="pr-4"><a href="#">Discipline Management</a></li>
             </div>
-            <div class="flex flex-row h-16 items-center space-x-4 text-lg">
-                <i class="fa-solid fa-book"></i>
-                <li class=""><a href="#">Homework Management</a></li>
+            <div class="hover:bg-[#00447D] hover:text-white flex flex-row h-16 items-center space-x-4 text-lg rounded">
+                <i class="fa-solid fa-book ml-4"></i>
+                <li class="pr-4"><a href="#">Homework Management</a></li>
             </div>
             
         </ul>
