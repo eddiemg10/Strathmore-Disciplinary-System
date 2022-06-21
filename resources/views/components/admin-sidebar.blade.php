@@ -1,13 +1,29 @@
 {{-- Navbar for Large screens --}}
-<div id="main-nav" class="pt-20 z-40 hidden w-[50%] top-0 left-0 md:flex md:w-[20%] fixed h-[100vh] bg-white">
-    <div class="flex flex-col mt-16 items-center w-full text-sm">
+<div id="main-nav" class="pt-20 z-40 hidden w-[50%] top-0 left-0 md:flex md:w-[20%] fixed h-[100vh] bg-slate-100">
+    <div class="flex flex-col mt-16 items-center w-full text-sm my-8">
 
-        <ul>
-            <li class="my-10"><a href="{{route('admin')}}">Student Management</a></li>
-            <li class="my-10"><a href="{{route('admin.teachers')}}">Teacher Management</a></li>
-            <li class="my-10"><a href="{{route('admin.parents')}}">Parent Management</a></li>
-            <li class="my-10"><a href="#">Discipline Management</a></li>
-            <li class="my-10"><a href="#">Homework Management</a></li>
+        <ul class="text-blue-strath space-y-4">
+            <div class="flex flex-row h-16 items-center space-x-4 text-lg">
+                <i class="fa-solid fa-user-graduate"></i>
+                <li class=""><a href="{{route('admin')}}">Student Management</a></li>
+            </div>
+            <div class="flex flex-row h-16 items-center space-x-4 text-lg ">
+                <i class="fa-solid fa-user-tie"></i>
+                <li class=""><a href="{{route('admin.teachers')}}">Teacher Management</a></li>
+            </div>
+            <div class="flex flex-row h-16 items-center space-x-4 text-lg">
+                <i class="fa-solid fa-children"></i>
+                <li class=""><a href="{{route('admin.parents')}}">Parent Management</a></li>
+            </div>
+            <div class="flex flex-row h-16 items-center space-x-4 text-lg">
+                <i class="fa-solid fa-check-to-slot"></i>
+                <li class=""><a href="#">Discipline Management</a></li>
+            </div>
+            <div class="flex flex-row h-16 items-center space-x-4 text-lg">
+                <i class="fa-solid fa-book"></i>
+                <li class=""><a href="#">Homework Management</a></li>
+            </div>
+            
         </ul>
 
     </div>
