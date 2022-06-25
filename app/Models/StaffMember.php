@@ -14,4 +14,9 @@ class StaffMember extends Model
         'staff_number',
         'user_id',
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+
+    }
 }

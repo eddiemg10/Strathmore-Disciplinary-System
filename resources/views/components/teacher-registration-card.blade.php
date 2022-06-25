@@ -1,6 +1,6 @@
 @extends('layouts.cardLayout')
 @section('modal_content')
-<div class="px-10 py-5">
+<div class="px-10 py-5 h-[80vh] overflow-y-scroll">
     <!-- Validation Errors -->
     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
@@ -59,13 +59,26 @@
             </select>
         </div>
 
+        <div class="mt-4">
+            <x-label for="classroom" :value="__('Classroom (Applies for class teachers only)')" />
+
+            <select id="classroom" name="classroom"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block w-full p-2.5">
+
+                <option value="0" selected>None</option>
+                @foreach($classrooms as $classroom)
+                <option value={{$classroom->id}}>{{$classroom->name}}</option>
+                @endforeach
+
+            </select>
+        </div>
+
 
         <div class="flex items-center justify-end mt-4">
 
 
             <button type="submit"
-                class="w-full bg-sky-900 rounded-md hover:bg-sky-800 afocus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition text-md text-white py-3 px-3">Register
-                Teacher</button>
+                class="w-full bg-sky-900 rounded-md hover:bg-sky-800 afocus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition text-md text-white py-3 px-3">{{$btn}}</button>
         </div>
     </form>
 </div>

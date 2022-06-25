@@ -47,9 +47,16 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($userID)
     {
-        //
+        $parent = User::find($userID);
+
+        $data = [
+            'parent' => $parent,
+        ];
+
+
+        return view("parent.show", $data);
     }
 
     /**
@@ -116,6 +123,7 @@ class UserController extends Controller
                 ->Where('user_type_id', '=', '1')      
                 ->Where('first_name', 'like', ''.$query.'%')
                 ->orWhere('last_name', 'like', ''.$query.'%')
+                ->Where('user_type_id', '=', '1')  
                 ->orderBy('users.id')
                 ->get();
                 
@@ -141,7 +149,7 @@ class UserController extends Controller
             foreach($data as $row)
             {
                 $output .= '
-                <tr class="p-4 text-left text-xs w-1/2 text-xl" id="'.$row->id.'">
+                <tr class="p-4 text-left text-xs w-1/2 hover:cursor-pointer odd:bg-white even:bg-gray-50" id="'.$row->id.'">
                 <td class="pl-4 text-center py-2">'.$row->id.'</td>
                 <td class="pl-4 py-2 text-center pr-8">'.$row->first_name. ' ' .$row->last_name.'</td>
                 </tr>

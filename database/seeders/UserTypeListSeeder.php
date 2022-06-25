@@ -16,13 +16,13 @@ class UserTypeListSeeder extends Seeder
     public function run()
     {
 
-        for($i = 1; $i < 6; $i++)
+        for($i = 1; $i < 11; $i++)
         \App\Models\UserTypeList::create([
             "user_id" => $i,
             "user_type_id" => 1
         ]);
 
-        for($i = 6; $i < 11; $i++)
+        for($i = 11; $i < 25; $i++)
         \App\Models\UserTypeList::create([
             "user_id" => $i,
             "user_type_id" => 3

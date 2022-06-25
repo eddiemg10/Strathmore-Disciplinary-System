@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Classroom;
 use App\Models\ParentStudent;
 use App\Models\Student;
 use App\Models\User;
@@ -54,16 +55,17 @@ class RegisteredUserController extends Controller
             $profile_photo= $filename;
         }
 
+
         try{
             $student = Student::create([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'profile_photo' => $profile_photo,
-                'classroom' => $request->classroom,
+                'classroom_id' => $request->classroom,
             ]);
         }
         catch(Exception $e){
-
+            dd($e);
             return redirect()->route('admin')->with('error', ' Error! Student could not be added');
         }
         
@@ -111,6 +113,13 @@ class RegisteredUserController extends Controller
                 'user_id' => $teacher->id,
                 'user_type_id' => $request->role,
             ]);
+
+            if($request->classroom != 0){
+                $classroom = Classroom::find($request->classroom);
+                $classroom->class_teacher = $teacher->id;
+                $classroom->save();
+            }
+            
         }
         catch(Exception $e){
             return redirect()->route('admin')->with('error', ' Error! Teacher could not be added');

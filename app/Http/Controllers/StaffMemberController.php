@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\StaffMember;
 use Illuminate\Http\Request;
 use App\Models\UserType;
-use App\Models\UserTypeList;
+use App\Models\User;
 use App\Models\Classroom;
 use Illuminate\Support\Facades\DB;
 
@@ -54,9 +54,16 @@ class StaffMemberController extends Controller
      * @param  \App\Models\StaffMember  $staffMember
      * @return \Illuminate\Http\Response
      */
-    public function show(StaffMember $staffMember)
+    public function show($staffMemberID)
     {
-        //
+        $teacher = User::find($staffMemberID);
+
+        $data = [
+            'teacher' => $teacher,
+        ];
+
+
+        return view("teacher.show", $data);
     }
 
     /**
@@ -115,10 +122,10 @@ class StaffMemberController extends Controller
                     'users.last_name', 
                     'user_type_lists.user_type_id')
              
-            ->Where('first_name', 'like', ''.$query.'%')
+            ->where('first_name', 'like', ''.$query.'%')
+            ->where('user_type_id', '=', '3')
             ->orWhere('last_name', 'like', ''.$query.'%')
-            ->Where('user_type_id', '=', '3')      
-
+            ->where('user_type_id', '=', '3')      
             ->orderBy('id')
             ->get();
                 
@@ -134,7 +141,7 @@ class StaffMemberController extends Controller
                         'users.last_name', 
                         'user_type_lists.user_type_id')
                  
-                ->Where('user_type_id', '=', '3') 
+                ->Where('user_type_id', '=', '3')
                 ->orderBy('users.id')
                 ->get();
             }
@@ -143,9 +150,11 @@ class StaffMemberController extends Controller
             {
             foreach($data as $row)
             {
+                $teacher = User::find($row->id);
+
                 $output .= '
-                <tr class="p-4 text-left text-xs w-1/2 text-xl" id="'.$row->id.'">
-                <td class="pl-4 text-center py-2">'.$row->id.'</td>
+                <tr class="p-4 text-left text-xs w-1/2 hover:cursor-pointer odd:bg-white even:bg-gray-50" id="'.$row->id.'">
+                <td class="pl-4 text-center py-2">'.$teacher->staff->staff_number.'</td>
                 <td class="pl-4 py-2 text-center pr-8">'.$row->first_name. ' ' .$row->last_name.'</td>
                 </tr>
                 ';

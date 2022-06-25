@@ -13,9 +13,10 @@ class Student extends Model
         'first_name',
         'last_name',
         'profile_photo',
+        'classroom_id',
     ];
-    public function classrooms(){
-        return $this->belongsToMany(Classroom::class, 'classroom_students');
+    public function classroom(){
+        return $this->belongsTo(Classroom::class);
     }
 
     public function parents(){

@@ -115,8 +115,7 @@
 
 
             <button type="submit"
-                class="w-full bg-sky-900 rounded-md hover:bg-sky-800 afocus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition text-md text-white py-3 px-3">Register
-                Student</button>
+                class="w-full bg-sky-900 rounded-md hover:bg-sky-800 afocus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition text-md text-white py-3 px-3">{{$btn}}</button>
         </div>
     </form>
 </div>

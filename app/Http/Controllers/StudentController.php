@@ -24,6 +24,7 @@ class StudentController extends Controller
         $classes = Classroom::all();
         $students = Student::all()->take(30);
 
+
         $data = [
             "classrooms" => $classes,
             "students" =>$students,
@@ -63,8 +64,11 @@ class StudentController extends Controller
     public function show($studentID)
     {
         $student = Student::find($studentID);
+        $classes = Classroom::all();
+
         $data = [
             'student' => $student,
+            "classrooms" => $classes,
         ];
 
 
@@ -111,8 +115,9 @@ class StudentController extends Controller
         {
             $output = '';
             $query = $request->get('query');
-            $classroom = $request->get('classroom');
+            $classroom = $request->get('classroom') ?? 'all'; 
 
+            
             if($query != '')
             {
             //  $data = DB::table('students')
@@ -129,12 +134,12 @@ class StudentController extends Controller
                         'students.last_name', 
                         'classrooms.name')
                  
-                        
-                ->Where('students.first_name', 'like', ''.$query.'%')
-                ->Where('students.last_name', 'like', ''.$query.'%')
-                ->Where('classrooms.id','=', ''.$classroom.'%')
-                ->orderBy('students.id')
-                ->get();
+                // ->where('classrooms.id','=', ''.$classroom)
+                // ->where('students.first_name', 'like', ''.$query.'%')
+                // ->orWhere('students.last_name', 'like', ''.$query.'%')
+                // ->where('classrooms.id','=', ''.$classroom)
+                ->orderBy('students.id');
+                // ->get();
                 
             }
             // ->join(//Google Eloquent Query Builder joins)
@@ -148,9 +153,25 @@ class StudentController extends Controller
                         'students.first_name', 
                         'students.last_name', 
                         'classrooms.name')
-                ->orderBy('students.id')
-                ->Where('classrooms.id','=', ''.$classroom.'%')
-                ->get();
+                ->orderBy('students.id');
+                // ->Where('classrooms.id','=', ''.$classroom.'%')
+                // ->get();
+            }
+
+            if($classroom !== 'all'){
+                $data = $data->where('classrooms.id','=', ''.$classroom)
+                             ->where('students.first_name', 'like', ''.$query.'%')
+                             ->orWhere('students.last_name', 'like', ''.$query.'%')
+                             ->where('classrooms.id','=', ''.$classroom)
+                             ->get()
+                             ->take(40);
+            }
+            else{
+                $data = $data->where('students.first_name', 'like', ''.$query.'%')
+                            ->orWhere('students.last_name', 'like', ''.$query.'%')
+                            ->get()
+                            ->take(40);
+
             }
             
             $total_row = $data->count();
@@ -159,7 +180,7 @@ class StudentController extends Controller
             foreach($data as $row)
             {
                 $output .= '
-                <tr class="p-4 text-left text-xs w-1/2 text-xl" id="'.$row->id.'">
+                <tr class="p-4 text-left text-xs w-1/2 student hover:cursor-pointer odd:bg-white even:bg-gray-50" id="'.$row->id.'">
                 <td class="pl-4 text-center py-2">'.$row->id.'</td>
                 <td class="pl-4 py-2 text-center">'.$row->first_name. ' ' .$row->last_name.'</td>
                 <td class="pl-4 py-2 text-center">'.$row->name.'</td>

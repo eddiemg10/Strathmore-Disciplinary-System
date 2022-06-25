@@ -52,4 +52,13 @@ class User extends Authenticatable
     public function children(){
         return $this->belongsToMany(Student::class, 'parent_students');
     }
+
+    public function staff(){
+        return $this->hasOne(StaffMember::class);
+
+    }
+
+    public function classroom(){
+        return $this->hasOne(Classroom::class, 'class_teacher');
+    }
 }

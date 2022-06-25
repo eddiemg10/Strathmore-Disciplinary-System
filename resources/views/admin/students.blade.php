@@ -1,12 +1,12 @@
 @extends("layouts.adminLayout")
 @section('sidebar')
-<x-admin-sidebar focus="student"/>
+<x-admin-sidebar focus="student" />
 @endsection
 @section('content')
 
 <div class="flex flex-col items-center pb-40 px-5 md:px-20 gap-y-20">
 
-    <x-student-registration-card title="Student Registration" :classrooms="$classrooms" />
+    <x-student-registration-card title="Student Registration" btn="Register Student" :classrooms="$classrooms" />
 
     <div class="bg-white px-10 py-5 shadow-md mt-10 w-full rounded-md flex flex-col items-center gap-y-8">
         <h1 class="text-zinc-700 md:text-3xl text-2xl font-semibold">Student Management</h1>
@@ -19,13 +19,17 @@
         </div>
     </div>
 
-    <div class="flex flex-wrap lg:flex-nowrap gap-x-5 sm:gap-y-10 w-full">
+    <div class="flex flex-wrap lg:flex-nowrap gap-x-5  sm:gap-y-10 w-full">
 
-        <x-admin-searchbar title="Find Student" title2="Admission Number" :classrooms="$classrooms" type="student"/>
-
+        {{-- <div class="flex grow min-w-[16rem] table-fixed flex-col bg-white drop-shadow-md py-10"> --}}
+            <x-admin-searchbar title="Find Student" title2="Admission Number" :classrooms="$classrooms"
+                type="student" />
+            {{--
+        </div> --}}
 
         {{-- search results --}}
-        <div id="search-result" class="flex grow-[3] basis-[532px]  flex-col items-center bg-white py-10">
+        <div id="search-result"
+            class="flex grow-[3] basis-[532px]  flex-col items-center drop-shadow-md bg-white py-10">
 
             <div class="animate-pulse w-full">
                 <div class="flex flex-col items-center w-full">
@@ -47,10 +51,10 @@
 
                             </div>
 
-                            <button id="edit-student" data-id="{{$student->id}}"
+                            <button
                                 class="bg-slate-100 shadow-md py-5 px-3 w-full text-white rounded-md mt-6 mb-2 flex justify-center relative items-center gap-x-5 hover:shadow-md hover:cursor-pointer"></button>
 
-                            <button id="delete-student" data-id="{{$student->id}}"
+                            <button
                                 class="bg-slate-100 shadow-md py-5 px-3 w-full text-white rounded-md flex justify-center relative items-center gap-x-5 hover:shadow-md hover:cursor-pointer">
                             </button>
 
@@ -62,7 +66,10 @@
                     </div>
                 </div>
 
-                <div class="bg-slate-100 w-[90%] h-[2px] mt-16"></div>
+                <div class="flex flex-col items-center">
+                    <div class="bg-slate-100 w-[90%] h-[2px] mt-16"></div>
+
+                </div>
 
                 <div class="w-full px-10">
                     <div class="w-full bg-slate-100 shadow-md h-32 px-5 mt-24 flex justify-center">
@@ -94,13 +101,13 @@
             resumeScroll();
         });
 
-        $(".student").click(function(e){
-
-            $.get("/admin/students/"+$(this).attr('id'), function(data, status){
+        $("#students-table").on('click','tr', function(){
+            var id = $(this).attr('id');
+            $.get("/admin/students/"+id, function(data, status){
                 $("#search-result").html(data);
                 location.href = "#search-result"; 
             });
-        })
+        });
 
      });
 </script>
