@@ -38,12 +38,12 @@
             @if($focus == 'discipline')
                 <div class="bg-[#00447D] text-white flex flex-row h-16 items-center space-x-4 text-sm mx-4 lg:text-base  rounded drop-shadow">
                     <i class="fa-solid fa-check-to-slot ml-4"></i>
-                    <li class="pr-4"><a href="#">Discipline Management</a></li>
+                    <li class="pr-4"><a href="{{route('admin.discipline')}}">Discipline Management</a></li>
                 </div>
             @else
                 <div class="hover:text-[#A11111] flex flex-row h-16 items-center space-x-4 text-sm mx-4 lg:text-base  rounded drop-shadow">
                     <i class="fa-solid fa-check-to-slot ml-4"></i>
-                    <li class="pr-4"><a href="#">Discipline Management</a></li>
+                    <li class="pr-4"><a href="{{route('admin.discipline')}}">Discipline Management</a></li>
                 </div>
             @endif
             @if($focus == 'homework')

@@ -6,6 +6,7 @@ use App\Http\Controllers\AccountSelectController;
 use App\Http\Controllers\StaffMemberController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BookingController;
 use App\Models\StaffMember;
 
 /*
@@ -58,6 +59,8 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/search-parent', [UserController::class, 'parentSearchAction'])->name('parent.action');
 
         Route::get('/search-teacher', [StaffMemberController::class, 'teacherSearchAction'])->name('teacher.action');
+
+        Route::get('/discipline', [BookingController::class, 'index'])->name('admin.discipline');
 
     });
 

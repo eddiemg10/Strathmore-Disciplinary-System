@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use Illuminate\Http\Request;
+use App\Models\Classroom;
 
 class BookingController extends Controller
 {
@@ -15,6 +16,13 @@ class BookingController extends Controller
     public function index()
     {
         //
+        $classes = Classroom::all();
+
+        $data = [
+            "classrooms" => $classes,
+        ];
+
+        return view('admin.discipline', $data);
     }
 
     /**
