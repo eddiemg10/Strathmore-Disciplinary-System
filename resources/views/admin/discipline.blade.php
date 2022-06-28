@@ -30,7 +30,7 @@
     <div class="flex flex-wrap lg:flex-nowrap gap-x-5  sm:gap-y-10 w-full">
 
         {{-- <div class="flex grow min-w-[16rem] table-fixed flex-col bg-white drop-shadow-md py-10"> --}}
-            <x-admin-find-classroom title="Find Classroom" title2="Classrooms" :classrooms="$classrooms" />
+            <x-admin-find-classroom :classrooms="$classrooms" />
             {{--
         </div> --}}
 
