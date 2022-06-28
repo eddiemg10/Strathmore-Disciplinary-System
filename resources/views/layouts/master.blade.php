@@ -19,6 +19,12 @@
     <script src="https://kit.fontawesome.com/347b9e054d.js" crossorigin="anonymous"></script>
 
     <title>{{$title ?? 'Strathmore School'}}</title>
+
+    <style>
+        .error {
+            color: orangered;
+        }
+    </style>
 </head>
 
 <body class="font-nunito overflow-x-hidden">

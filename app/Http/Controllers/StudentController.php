@@ -117,6 +117,8 @@ class StudentController extends Controller
             $query = $request->get('query');
             $classroom = $request->get('classroom') ?? 'all'; 
 
+            $paginate = $request->get('paginate') ?? 40;
+
             
             if($query != '')
             {
@@ -164,13 +166,13 @@ class StudentController extends Controller
                              ->orWhere('students.last_name', 'like', ''.$query.'%')
                              ->where('classrooms.id','=', ''.$classroom)
                              ->get()
-                             ->take(40);
+                             ->take($paginate);
             }
             else{
                 $data = $data->where('students.first_name', 'like', ''.$query.'%')
                             ->orWhere('students.last_name', 'like', ''.$query.'%')
                             ->get()
-                            ->take(40);
+                            ->take($paginate);
 
             }
             
@@ -204,4 +206,20 @@ class StudentController extends Controller
             echo json_encode($data);
             }
     }
+
+    public function getName(Request $request){
+
+            $id = $request->get('student');
+            $student = Student::find($id);
+
+            $name = $student->first_name." ".$student->last_name;
+
+            $badge = '<div class="bg-slate-50 rounded-full p-2 px-4 w-auto flex items-center gap-x-3 text-sm id=student-'.$id.'">'.$name.'<span class="mx-2">|</span> <i class="fa-solid hover:cursor-pointer fa-circle-xmark remove-student" data-id="'.$id.'"></i></div>';
+            $data = [
+                'name' => $badge,
+            ];
+
+            return $data;
+    }
+
 }

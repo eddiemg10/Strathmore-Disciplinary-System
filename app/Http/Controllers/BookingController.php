@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use App\Models\Classroom;
+use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
@@ -22,7 +24,7 @@ class BookingController extends Controller
             "classrooms" => $classes,
         ];
 
-        return view('admin.discipline', $data);
+        return view('admin.discipline.behaviour_sheet', $data);
     }
 
     /**
@@ -43,7 +45,38 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $classroom = $request->classroom;
+        $students = json_decode($request->students);
+        $comments = $request->comments;
+        $period = $request->period;
+
+
+        try{
+            foreach($students as $student){
+                $booking = new Booking();
+    
+                $booking->student_id = $student;
+                $booking->staff_member_id = Auth::User()->id;
+                $booking->offence = $comments;
+                $booking->period = $period;
+                $booking->classroom_id = $classroom;
+    
+                $booking->save();
+                            
+            }
+
+
+            return ['success'=>'Booking successfully added'];
+
+        }catch(Exception $e){
+           
+
+            return ['error'=>'Booking successfully added'];
+
+        }
+        
+
+        
     }
 
     /**

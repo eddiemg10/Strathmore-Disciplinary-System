@@ -57,11 +57,15 @@ Route::middleware(['auth'])->group(function(){
 
         Route::get('/search-student', [StudentController::class, 'studentSearchAction'])->name('student.action');
 
+        Route::get('/search-student-name', [StudentController::class, 'getName'])->name('student.name');
+
         Route::get('/search-parent', [UserController::class, 'parentSearchAction'])->name('parent.action');
 
         Route::get('/search-teacher', [StaffMemberController::class, 'teacherSearchAction'])->name('teacher.action');
 
-        Route::get('/discipline', [BookingController::class, 'index'])->name('admin.discipline');
+        Route::get('/behavioursheet', [BookingController::class, 'index'])->name('admin.behavioursheet');
+
+        Route::post('/behavioursheet', [BookingController::class, 'store'])->name('book');
 
         Route::get('/homework', [AssignmentController::class, 'index'])->name('admin.homework');
 

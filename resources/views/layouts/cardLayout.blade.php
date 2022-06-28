@@ -15,9 +15,10 @@
     <div id="modal-card" tabindex="-1" aria-hidden="true" class=" {{count($errors) > 0 ? " flex" : "hidden" }}
         bg-slate-900 bg-opacity-80 overflow-x-hidden fixed top-0 inset-x-0 mx-auto right-0 left-0 z-50 w-full inset-0
         h-modal h-full justify-center items-center">
-        <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+        <div
+            class="relative p-4 w-full {{isset($width) ? 'md:max-w-'.$width :  'md:max-w-2xl'}} h-full md:h-auto md:max-h-[90vh]">
             <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <div class="relative bg-white   rounded-lg shadow dark:bg-gray-700">
                 <!-- Modal header -->
                 <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
