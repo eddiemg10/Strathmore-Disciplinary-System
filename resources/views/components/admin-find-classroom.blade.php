@@ -36,48 +36,4 @@
             @endforeach
         </select>
     </div>
-
-    
-    <script>
-        $(document).ready(function(){
-
-    fetch_customer_data();
-
-    function fetch_customer_data(query = '', classroom = '')
-    {
-    $.ajax({
-    url:"{{ route('student.action') }}",
-    method:'GET',
-    data:{query:query, classroom:classroom},
-    dataType:'json',
-    success:function(data)
-    {
-        $('#students-table-body').html(data.table_data);
-        $('#total_records').text(data.total_data);
-    }
-    })
-    }
-
-    //On search by name
-    $(document).on('keyup', '#search', function(){
-    var query = $(this).val();
-    var classroom = $('#classroom_id').val();
-    console.log(query+" on class "+classroom);
-    // console.log(query);
-    fetch_customer_data(query, classroom);
-    });
-
-    //Search by classroom
-    $('select').on('change', function() {
-        var query = $("#search").val()
-        var classroom = $('#classroom_id').val();
-        console.log(query+" on class "+classroom);
-
-        fetch_customer_data(query, classroom);
-    });
-
-
-    });
-    </script>
-
 </div>
