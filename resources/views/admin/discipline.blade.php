@@ -8,18 +8,20 @@
 
     <div class="bg-white px-10 py-5 shadow-md mt-10 w-full rounded-md flex flex-col items-center gap-y-8">
         <h1 class="text-zinc-700 md:text-3xl text-2xl font-semibold">Discipline Management</h1>
-        <div class='flex flex-row space-x-4'>
-            <div>
-                Behaviour Sheet
+        <div class='flex flex-row justify-center  space-x-32 border-b-2 w-full'>
+            
+            <!-- Active for now, I will sort nav bar logic later on. -->
+            <div class="text-[#00447D] border-[#00447D] border-b-2">
+                <p>Behaviour Sheet</p> 
             </div>
-            <div>
-                Detention
+            <div class="">
+                <p>Detention</p> 
             </div>
-            <div>
-                Updates
+            <div class="">
+                <p>Updates</p>
             </div>
-            <div>
-                History
+            <div class="">
+                <p>History</p>
             </div>
         </div>
         <div class="w-full">
