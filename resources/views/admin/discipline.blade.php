@@ -9,7 +9,7 @@
     <div class="bg-white px-10 py-5 shadow-md mt-10 w-full rounded-md flex flex-col items-center gap-y-8">
         <h1 class="text-zinc-700 md:text-3xl text-2xl font-semibold">Discipline Management</h1>
         <div class='flex flex-row justify-center  space-x-32 border-b-2 w-full'>
-            
+
             <!-- Active for now, I will sort nav bar logic later on. -->
             <div class="text-[#00447D] border-[#00447D] border-b-2">
                 <p>Behaviour Sheet</p> 
@@ -32,7 +32,7 @@
     <div class="flex flex-wrap lg:flex-nowrap gap-x-5  sm:gap-y-10 w-full">
 
         {{-- <div class="flex grow min-w-[16rem] table-fixed flex-col bg-white drop-shadow-md py-10"> --}}
-            <x-admin-find-classroom :classrooms="$classrooms" />
+            <x-admin-find-classroom type="booking" :classrooms="$classrooms" />
             {{--
         </div> --}}
 

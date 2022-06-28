@@ -19,10 +19,12 @@
     <div class="w-full flex flex-col items-center pb-2 border-b-2 mb-4">
         <h1 class="text-3xl text-zinc-600">Find Classroom</h1>
     </div>
-
+    
+    @if ($type == 'booking')
     <div class='m-4 p-4 rounded bg-gray-200'>
         <p class='text-center text-sm'>Not in a classroom? Use the <a class="text-blue-700 underline underline-offset-1" href="">general behaviour sheet</a> instead.</p>
     </div>
+    @endif
 
     <div class="w-full flex flex-col items-center mt-8 mb-2">
         <p class="text-base text-zinc-600">Select classroom below</p>

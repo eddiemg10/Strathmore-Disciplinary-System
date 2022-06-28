@@ -7,6 +7,7 @@ use App\Http\Controllers\StaffMemberController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\AssignmentController;
 use App\Models\StaffMember;
 
 /*
@@ -61,6 +62,8 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/search-teacher', [StaffMemberController::class, 'teacherSearchAction'])->name('teacher.action');
 
         Route::get('/discipline', [BookingController::class, 'index'])->name('admin.discipline');
+
+        Route::get('/homework', [AssignmentController::class, 'index'])->name('admin.homework');
 
     });
 

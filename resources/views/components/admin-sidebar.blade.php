@@ -49,12 +49,12 @@
             @if($focus == 'homework')
                 <div class="bg-[#00447D] text-white flex flex-row h-16 items-center space-x-4 text-sm mx-4 lg:text-base rounded drop-shadow">
                     <i class="fa-solid fa-book ml-4"></i>
-                    <li class="pr-4"><a href="#">Homework Management</a></li>
+                    <li class="pr-4"><a href="{{route('admin.homework')}}">Homework Management</a></li>
                 </div>
             @else
                 <div class="hover:text-[#A11111] flex flex-row h-16 items-center space-x-4 text-sm mx-4 lg:text-base rounded drop-shadow">
                     <i class="fa-solid fa-book ml-4"></i>
-                    <li class="pr-4"><a href="#">Homework Management</a></li>
+                    <li class="pr-4"><a href="{{route('admin.homework')}}">Homework Management</a></li>
                 </div>
             @endif     
         </ul>
