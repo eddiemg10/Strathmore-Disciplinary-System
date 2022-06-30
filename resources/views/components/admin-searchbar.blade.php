@@ -1,4 +1,4 @@
-<div class="grow min-w-[16rem] w-[33%] py-10 container bg-white  flex flex-col px-8">
+<div class="grow min-w-[16rem] w-[33%] py-10 container bg-white drop-shadow-xl flex flex-col px-8">
     <!-- Nothing worth having comes easy. - Theodore Roosevelt -->
     <style>
         .form-control:focus {
