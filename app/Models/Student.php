@@ -22,4 +22,8 @@ class Student extends Model
     public function parents(){
         return $this->belongsToMany(User::class, 'parent_students');
     }
+
+    public function bookings(){
+        return $this->hasMany(Booking::class);
+    }
 }

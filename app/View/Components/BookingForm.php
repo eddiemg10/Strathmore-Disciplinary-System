@@ -4,16 +4,20 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class booking-form extends Component
+class BookingForm extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public $title;
+    public $width;
+
+    public function __construct($title, $width)
     {
-        //
+        $this->title = $title;
+        $this->width = $width;
     }
 
     /**

@@ -6,12 +6,23 @@
 
     <form id="booking-form" method="POST" action="#" class="flex flex-col">
 
-        <label for="search"> Search Student</label>
+        <div id="success"
+            class="hidden my-5 text-center font-bold text-green-900 bg-green-50 border-2 border-green-600 rounded-md w-full py-5">
+            Successfully added booking
+        </div>
+
+        <div id="error"
+            class=" hidden my-5 text-center font-bold text-red-900 bg-red-50 border-2 border-red-700 rounded-md w-full py-5">
+            An error occured in adding the booking. Please try again later
+        </div>
+
+        <label for="search" class="mb-2"> Search Student</label>
         <div class="flex items-center text-zinc-700 w-full">
 
             <i class="fa-solid fa-magnifying-glass fa-xl mr-4"></i>
             <input type="search" name="search" id="search"
-                class="p-4 pl-10  w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 " autofocus>
+                class="p-4 pl-10  w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 " autofocus
+                autocomplete="off">
 
 
         </div>
@@ -31,7 +42,8 @@
                 </tbody>
             </table>
 
-            <div id="added-students" class="my-4 flex gap-5 bg-sky-200 p-3 w-full">
+            <div id="added-students"
+                class="my-4 flex flex-wrap gap-5 bg-sky-50 border-2 border-sky-800 p-3 rounded-md w-full">
 
             </div>
 
@@ -58,7 +70,7 @@
             Submit Booking
         </button>
 
-        <input type="hidden" id="classroom_id" value='1'>
+        <input type="hidden" id="classroom" value='1'>
 
 
     </form>
@@ -117,11 +129,23 @@
                     students:JSON.stringify(students),
                     period:$('#period').val(),
                     comments:$('#comments').val(),
-                    classroom:$('#classroom_id').val(),
+                    classroom:$('#classroom').val(),
                 },
                 success:function(response){
                     // $('#successMsg').show();
-                    console.log(response);
+
+                    if(response.success){
+                        $("#success").show();
+                    }
+
+                    if(response.error){
+                        $("#error").show();
+
+                    }
+                    console.log(students)
+                    clearForm();
+                    console.log(students)
+
                 },
                 error: function(response) {
                     $('#nameErrorMsg').text(response.responseJSON.errors.name);
@@ -132,6 +156,14 @@
             });
 
         });
+
+        function clearForm(){
+            $('#period').val("");
+            $('#comments').val("");
+            $('#added-students').html("");
+            students = [];
+
+        }
 
         
 </script>

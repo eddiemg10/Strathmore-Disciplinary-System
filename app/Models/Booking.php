@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     use HasFactory;
+
+    public function teacher(){
+        return $this->belongsTo(User::class, 'staff_member_id');
+    }
+
+    public function student(){
+        return $this->belongsTo(Student::class);
+    }
 }

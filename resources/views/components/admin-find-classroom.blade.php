@@ -19,10 +19,11 @@
     <div class="w-full flex flex-col items-center pb-2 border-b-2 mb-4">
         <h1 class="text-3xl text-zinc-600">Find Classroom</h1>
     </div>
-    
+
     @if ($type == 'booking')
     <div class='m-4 p-4 rounded bg-gray-200'>
-        <p class='text-center text-sm'>Not in a classroom? Use the <a class="text-blue-700 underline underline-offset-1" href="">general behaviour sheet</a> instead.</p>
+        <p class='text-center text-sm'>Not in a classroom? Use the <a class="text-blue-700 underline underline-offset-1"
+                href="">general behaviour sheet</a> instead.</p>
     </div>
     @endif
 
@@ -32,7 +33,11 @@
 
     <div class="w-full mt-4 flex justify-center border border-[#000000] rounded">
         <select name="classroom_id" id="classroom_id" class="w-full text-gray text-xs p-4 border rounded form-control">
+            @if($type !== 'booking')
             <option value="" selected><span class="text-gray">All Classrooms</span></option>
+            @else
+            <option value="" selected disabled><span class="text-gray">Select Classroom</span></option>
+            @endif
             @foreach($classrooms as $classroom)
             <option class="text-blue" value="{{ $classroom->id }}">{{ $classroom->name}}</option>
             @endforeach

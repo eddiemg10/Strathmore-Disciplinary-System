@@ -214,7 +214,7 @@ class StudentController extends Controller
 
             $name = $student->first_name." ".$student->last_name;
 
-            $badge = '<div class="bg-slate-50 rounded-full p-2 px-4 w-auto flex items-center gap-x-3 text-sm id=student-'.$id.'">'.$name.'<span class="mx-2">|</span> <i class="fa-solid hover:cursor-pointer fa-circle-xmark remove-student" data-id="'.$id.'"></i></div>';
+            $badge = '<div class="bg-white shadow rounded-full p-2 px-4 w-auto flex items-center gap-x-3 text-sm id=student-'.$id.'">'.$name.'<span class="mx-2">|</span> <i class="fa-solid hover:cursor-pointer fa-circle-xmark remove-student" data-id="'.$id.'"></i></div>';
             $data = [
                 'name' => $badge,
             ];
