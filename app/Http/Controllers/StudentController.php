@@ -130,7 +130,7 @@ class StudentController extends Controller
 
                 $data = DB::table('students')
                 ->join('classrooms', 'students.classroom_id', '=', 'classrooms.id')
-                ->select('classrooms.id',
+                ->select('classrooms.id as classroom',
                         'students.id', 
                         'students.first_name', 
                         'students.last_name', 
@@ -150,7 +150,7 @@ class StudentController extends Controller
             {
                 $data = DB::table('students')
                 ->join('classrooms', 'students.classroom_id', '=', 'classrooms.id')
-                ->select('classrooms.id',
+                ->select('classrooms.id as classroom',
                         'students.id', 
                         'students.first_name', 
                         'students.last_name', 
@@ -177,12 +177,13 @@ class StudentController extends Controller
             }
             
             $total_row = $data->count();
+
             if($total_row > 0)
             {
             foreach($data as $row)
             {
                 $output .= '
-                <tr class="p-4 text-left text-xs w-1/2 student hover:cursor-pointer odd:bg-white even:bg-gray-50" id="'.$row->id.'">
+                <tr class="p-4 text-left text-xs w-1/2 student hover:cursor-pointer odd:bg-white even:bg-gray-50" id='.$row->id.' data-classroom='.$row->classroom.'>
                 <td class="pl-4 text-center py-2">'.$row->id.'</td>
                 <td class="pl-4 py-2 text-center">'.$row->first_name. ' ' .$row->last_name.'</td>
                 <td class="pl-4 py-2 text-center">'.$row->name.'</td>

@@ -61,7 +61,6 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        $classroom = $request->classroom;
         $students = json_decode($request->students);
         $comments = $request->comments;
         $period = $request->period;
@@ -71,11 +70,11 @@ class BookingController extends Controller
             foreach($students as $student){
                 $booking = new Booking();
     
-                $booking->student_id = $student;
+                $booking->student_id = $student->student;
                 $booking->staff_member_id = Auth::User()->id;
                 $booking->offence = $comments;
                 $booking->period = $period;
-                $booking->classroom_id = $classroom;
+                $booking->classroom_id = $student->classroom;
     
                 $booking->save();
                             
@@ -126,6 +125,97 @@ class BookingController extends Controller
         ];
 
         return view('admin.discipline.behaviour_sheet_entry', $data);
+    }
+
+    public function showUnassessed(Request $request){
+
+        $startDate = $request->startDate ?? '2022/06/29';
+        $endDate = $request->endDate ?? '2022/07/09';
+
+        $bookings = Booking::whereBetween('created_at', [
+            $startDate, 
+            Carbon::parse($endDate)->endOfDay(),
+            ])->orderBy('created_at', 'desc')->where('assessment', null)->get();
+        
+       
+
+        $data = [
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'bookings' => $bookings,
+        ];
+        return view('admin.discipline.bookings.unassessed_bookings', $data);
+
+    }
+
+    public function showAssessed(Request $request){
+
+        $startDate = $request->startDate ?? '2022/06/29';
+        $endDate = $request->endDate ?? '2022/07/09';
+
+        $bookings = Booking::whereBetween('created_at', [
+            $startDate, 
+            Carbon::parse($endDate)->endOfDay(),
+            ])->orderBy('student_id', 'asc')->where('assessment', '>', '0');
+        
+
+        // $classrooms = $bookings->distinct('classroom_id')->count();
+
+        $DTList = [];
+
+        $asssesedBookings = $bookings->get();
+
+        $classrooms = $bookings->select('classroom_id')->distinct()->get();
+
+        foreach($classrooms as $classroom){
+
+            foreach($asssesedBookings as $ab){
+                
+            
+                array_push($DTList,[
+                    "classroom" => $classroom,
+                    "bookings" => [
+
+                    ],
+                ]);
+            }
+        }
+
+
+
+        return $classrooms;
+        
+
+        return $bookings;
+
+        $data = [
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'bookings' => $bookings->get(),
+        ];
+        return view('admin.discipline.bookings.assessed_bookings', $data);
+    }
+
+    public function assessBookings(Request $request){
+
+        $assessments = json_decode($request->assessments);
+
+        try{
+            foreach($assessments as $assmt){
+                $booking = Booking::find($assmt->booking);
+                $booking->assessment = $assmt->assessment;
+                $booking->updated_by = Auth::User()->id;
+                $booking->save();
+
+            }
+
+            return ['success'=>'Bookings Successfully assessed'];
+
+        }catch(Exception $e){
+
+            return ['error'=>' An error occured in assessing bookings. Please try again later'];
+            
+        }
     }
 
     /**

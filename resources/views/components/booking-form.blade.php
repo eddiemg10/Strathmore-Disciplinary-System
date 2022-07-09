@@ -70,7 +70,7 @@
             Submit Booking
         </button>
 
-        <input type="hidden" id="classroom" value='1'>
+        <input type="hidden" id="classroom" value='0'>
 
 
     </form>
@@ -83,9 +83,14 @@
         var students = [];
 
         $("#students-table").on('click','tr', function(){
-            var id = $(this).attr('id');
+            var id = parseInt($(this).attr('id'));
 
-            if(!students.includes(id)){
+            var studentClassroom = $(this).data('classroom');
+
+            //-1 if not exists, else = index
+            var index = students.findIndex((x) => x.student === id);
+
+            if(index === -1){
 
             
                 $.ajax({
@@ -97,11 +102,12 @@
                 {
 
                         $('#added-students').append(data.name);
-                        students.push(id);
+                        students.push({student:id, classroom:studentClassroom});
+                        console.log(students);
 
                         $(".remove-student").on('click', function(){
                             var id = $(this).data('id');
-                            const index = students.indexOf(String(id));
+                            const index = students.findIndex((x) => x.student === id);
                             
                             if (index > -1) {
                             students.splice(index, 1); // 2nd parameter means remove one item only
@@ -129,7 +135,6 @@
                     students:JSON.stringify(students),
                     period:$('#period').val(),
                     comments:$('#comments').val(),
-                    classroom:$('#classroom').val(),
                 },
                 success:function(response){
                     // $('#successMsg').show();

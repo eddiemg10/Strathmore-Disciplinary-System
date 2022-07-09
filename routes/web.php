@@ -69,6 +69,13 @@ Route::middleware(['auth'])->group(function(){
 
         Route::post('/behavioursheet', [BookingController::class, 'store'])->name('book');
 
+        Route::post('/bookings/assess', [BookingController::class, 'assessBookings'])->name('assess.bookings');
+
+        Route::get('/bookings/unassessed', [BookingController::class, 'showUnassessed']);
+
+        Route::get('/bookings/assessed', [BookingController::class, 'showAssessed']);
+
+
         Route::get('/detention', [BookingController::class, 'detention'])->name('admin.detention');
 
 

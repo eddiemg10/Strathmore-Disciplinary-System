@@ -102,27 +102,7 @@
 
 <script>
     $( document ).ready(function() {
-
-        // $("#add-booking").click(function(e){
-        //     $("#modal-card").removeClass('hidden');
-        //     $("#modal-card").addClass('flex');
-        //     stopScroll();
-        // })
-
-        // $("#close-modal").click(function(e){
-        //     $("#modal-card").removeClass('flex');
-        //     $("#modal-card").addClass('hidden');
-        //     resumeScroll();
-        // });
-
-        // $(document).on('keyup', '#search', function(){
-        //     var query = $(this).val();
-        //     var classroom = $('#classroom').val();
-        //     // console.log(query+" on class "+classroom);
-        //     fetch_students(query, classroom);
-        // });
-
-        
+       
         $('select').on('change', function() {
             var id = $("#classroom_id").val();
 
@@ -134,23 +114,77 @@
             });
         });
 
-
-        // function fetch_students(query = '', classroom = '')
-        // {
-        //     $.ajax({
-        //     url:"{{ route('student.action') }}",
-        //     method:'GET',
-        //     data:{query:query, classroom:classroom, paginate:4},
-        //     dataType:'json',
-        //     success:function(data)
-        //     {
-        //         $('#students-table-body').html(data.table_data);
-        //     }
-        //     });
-        // }
+        $('#general-bs').click(function(e){
+            $("#modal-card").removeClass('hidden');
+            $("#modal-card").addClass('flex');
+            //For general bs, search students from all classes
+            $("#classroom").val('all');
+            stopScroll();
+            console.log(students);
+        });
 
 
+        $("#close-modal").click(function(e){
+
+            if(checkInput()){
+
+                if (confirm('You have some unsubmitted input. Closing this form will discard all changes')) {
+                    closeBookingForm();
+                }  
+            }
+
+            else{
+                closeBookingForm();
+            }
+             
+            
+        });
+
+        $(document).on('keyup', '#search', function(){
+            var query = $(this).val();
+            var classroom = $('#classroom').val();
+            // console.log(query+" on class "+classroom);
+            fetch_students(query, classroom);
+        });
+
+        function fetch_students(query = '', classroom = '')
+        {
+            $.ajax({
+            url:"{{ route('student.action') }}",
+            method:'GET',
+            data:{query:query, classroom:classroom, paginate:4},
+            dataType:'json',
+            success:function(data)
+            {
+                $('#students-table-body').html(data.table_data);
+            }
+            });
+        }    
+
+        function checkInput(){
+            //Checks whether the user has entered some input
+            if($('#period').val() || $('#comments').val() || students.length > 0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
         
+        function closeBookingForm(){
+            $("#modal-card").removeClass('flex');
+            $("#modal-card").addClass('hidden');
+            resumeScroll();
+            //Flush the added students state
+            students = [];
+            $('#added-students').html('');
+
+            //Flush all messages and states
+            $('#search').val('');
+            $('#error').hide();
+            $('#success').hide();
+            $('#students-table-body').html('');
+        }
 
      });
 </script>

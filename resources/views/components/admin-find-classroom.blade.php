@@ -22,8 +22,9 @@
 
     @if ($type == 'booking')
     <div class='m-4 p-4 rounded bg-gray-200'>
-        <p class='text-center text-sm'>Not in a classroom? Use the <a class="text-blue-700 underline underline-offset-1"
-                href="">general behaviour sheet</a> instead.</p>
+        <p class='text-center text-sm' id="general-bs">Not in a classroom? Use the <span
+                class="text-blue-700 underline underline-offset-1 hover:cursor-pointer">general behaviour sheet</span>
+            instead.</p>
     </div>
     @endif
 

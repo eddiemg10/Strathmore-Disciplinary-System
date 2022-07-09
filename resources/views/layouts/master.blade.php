@@ -7,22 +7,32 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ Session::token() }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <script src="{{ asset('js/helper.js') }}"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css" />
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script src="https://kit.fontawesome.com/6d51c26809.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"
         integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"> </script>
     <script src="https://kit.fontawesome.com/347b9e054d.js" crossorigin="anonymous"></script>
 
+    <script src="{{ asset('js/helper.js') }}"></script>
     <title>{{$title ?? 'Strathmore School'}}</title>
 
     <style>
         .error {
             color: orangered;
+        }
+
+        .ui-datepicker {
+            background: white;
+            border: 1px solid #555;
+            color: #00447D;
         }
     </style>
 </head>
@@ -61,5 +71,18 @@
         @yield('layout_content')
     </div>
 </body>
+
+<script>
+    $( document ).ready(function() {
+
+    $(function(){
+        $( ".date" ).datepicker({
+        dateFormat : 'yy/mm/dd',
+        showAnim: 'slideDown',
+        }); 
+    });
+
+});
+</script>
 
 </html>
