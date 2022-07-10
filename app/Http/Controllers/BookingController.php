@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use App\Models\Classroom;
+use App\Models\Student;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Builder\Class_;
+use PDF;
 
 class BookingController extends Controller
 {
@@ -153,45 +155,17 @@ class BookingController extends Controller
         $startDate = $request->startDate ?? '2022/06/29';
         $endDate = $request->endDate ?? '2022/07/09';
 
-        $bookings = Booking::whereBetween('created_at', [
-            $startDate, 
-            Carbon::parse($endDate)->endOfDay(),
-            ])->orderBy('student_id', 'asc')->where('assessment', '>', '0');
+        $DTList = $this->getDetentionData($startDate, $endDate);
         
-
-        // $classrooms = $bookings->distinct('classroom_id')->count();
-
-        $DTList = [];
-
-        $asssesedBookings = $bookings->get();
-
-        $classrooms = $bookings->select('classroom_id')->distinct()->get();
-
-        foreach($classrooms as $classroom){
-
-            foreach($asssesedBookings as $ab){
-                
-            
-                array_push($DTList,[
-                    "classroom" => $classroom,
-                    "bookings" => [
-
-                    ],
-                ]);
-            }
-        }
-
-
-
-        return $classrooms;
-        
-
-        return $bookings;
+;
 
         $data = [
             'startDate' => $startDate,
             'endDate' => $endDate,
-            'bookings' => $bookings->get(),
+            'startDateHuman' => $this->stringToHumanTime($startDate) ,
+            'endDateHuman' => $this->stringToHumanTime($endDate),
+            'detention_list' => $DTList,
+
         ];
         return view('admin.discipline.bookings.assessed_bookings', $data);
     }
@@ -216,6 +190,33 @@ class BookingController extends Controller
             return ['error'=>' An error occured in assessing bookings. Please try again later'];
             
         }
+    }
+
+    public function createBookingList(Request $request){
+
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
+
+        $DTList = $this->getDetentionData($startDate, $endDate);
+
+        $data = [
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'startDateHuman' => $this->stringToHumanTime($startDate) ,
+            'endDateHuman' => $this->stringToHumanTime($endDate),
+            'detention_list' => $DTList,
+
+        ];
+
+
+        $oldDate =  strtotime($endDate);
+        $docDate = date('d-m-Y',$oldDate);
+        
+        // return view('detention_pdf', $data);
+
+        $pdf = PDF::loadView('detention_pdf', $data);
+        return $pdf->download('detention'.$docDate.'.pdf');
+
     }
 
     /**
@@ -250,5 +251,65 @@ class BookingController extends Controller
     public function destroy(Booking $booking)
     {
         //
+    }
+
+    public function getDetentionData($startDate, $endDate){
+        $bookings = Booking::whereBetween('created_at', [
+            $startDate, 
+            Carbon::parse($endDate)->endOfDay(),
+            ])->orderBy('student_id', 'asc')->where('assessment', '>', '0');
+        
+
+        // $classrooms = $bookings->distinct('classroom_id')->count();
+
+        $DTList = [];
+
+        $asssesedBookings = $bookings->get();
+
+        $classrooms = $bookings->select('classroom_id')->distinct()->get();
+
+        foreach($classrooms as $classroom){
+
+            $classBookings = [];
+
+
+            foreach($asssesedBookings as $ab){
+                
+                $student = Student::find($ab->student_id);
+
+                if($student->classroom_id === $ab->classroom_id && $ab->classroom_id === $classroom->classroom_id){
+
+                    /*Adds person to the DT List based on 2 conditions:
+                        1. If the booking is a full tick
+                        2. If the student has more than one booking
+                    */
+
+                    $count = 0;
+                    foreach ($asssesedBookings as $object) {
+                        if ($object->student_id === $student->id) $count++;
+                    }
+
+                    if($ab->assessment > 1 || $count>1){
+                        array_push($classBookings,$ab);
+                    }
+                    
+
+                }
+            }
+
+            array_push($DTList,[
+                "classroom" => $classroom,
+                "bookings" => $classBookings,
+            ]);
+        }
+
+        return $DTList;
+    }
+
+    public function stringToHumanTime($str){
+        
+        $oldDate =  strtotime($str);
+        $newformat = date('jS F Y',$oldDate);
+        return $newformat;
     }
 }

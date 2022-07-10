@@ -75,8 +75,10 @@ Route::middleware(['auth'])->group(function(){
 
         Route::get('/bookings/assessed', [BookingController::class, 'showAssessed']);
 
-
         Route::get('/detention', [BookingController::class, 'detention'])->name('admin.detention');
+
+        Route::get('/detentionlist', [BookingController::class, 'createBookingList'])->name('detentionPDF');
+
 
 
         Route::get('/homework', [AssignmentController::class, 'index'])->name('admin.homework');
