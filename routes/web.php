@@ -81,6 +81,8 @@ Route::middleware(['auth'])->group(function(){
 
         Route::get('/homework', [AssignmentController::class, 'index'])->name('admin.homework.homework');
 
+        Route::get('/homework/{classroom}', [AssignmentController::class, 'show'])->name('admin.showHomework');
+
     });
 
     Route::group(['prefix' => 'parent', 'middleware' => ['is_parent']], function(){
