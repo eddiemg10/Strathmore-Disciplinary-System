@@ -22,7 +22,7 @@ class AssignmentController extends Controller
             "classrooms" => $classes,
         ];
 
-        return view('admin.homework', $data);
+        return view('admin.homework.homework', $data);
     }
 
     /**

@@ -26,7 +26,7 @@
 
             <div class="animate-pulse w-full">
                 <div class="flex flex-col items-center w-full">
-                    <h1 class="text-3xl text-zinc-600">No search results</h1>
+                    <h1 class="text-3xl text-zinc-600">No classroom selected</h1>
 
                     <div class="bg-slate-100 w-[90%] h-[2px] mt-5"></div>
 
