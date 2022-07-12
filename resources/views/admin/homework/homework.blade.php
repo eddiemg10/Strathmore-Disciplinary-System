@@ -82,25 +82,36 @@
 <script>
     $( document ).ready(function() {
 
-        $("#add-student").click(function(e){
-            $("#modal-card").removeClass('hidden');
-            $("#modal-card").addClass('flex');
-            stopScroll();
-        })
+        $('select').on('change', function() {
+            var id = $("#classroom_id").val();
 
-        $("#close-modal").click(function(e){
-            $("#modal-card").removeClass('flex');
-            $("#modal-card").addClass('hidden');
-            resumeScroll();
-        });
-
-        $("#students-table").on('click','tr', function(){
-            var id = $(this).attr('id');
-            $.get("/admin/students/"+id, function(data, status){
+            $.get("/admin/homework/"+id, function(data, status){
                 $("#search-result").html(data);
-                location.href = "#search-result"; 
+
+                //Change the classroom input to the clicked classroom
+                $("#classroom").val(id);
             });
         });
+        
+        // $("#add-student").click(function(e){
+        //     $("#modal-card").removeClass('hidden');
+        //     $("#modal-card").addClass('flex');
+        //     stopScroll();
+        // })
+
+        // $("#close-modal").click(function(e){
+        //     $("#modal-card").removeClass('flex');
+        //     $("#modal-card").addClass('hidden');
+        //     resumeScroll();
+        // });
+
+        // $("#students-table").on('click','tr', function(){
+        //     var id = $(this).attr('id');
+        //     $.get("/admin/students/"+id, function(data, status){
+        //         $("#search-result").html(data);
+        //         location.href = "#search-result"; 
+        //     });
+        // });
 
      });
 </script>
