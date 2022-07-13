@@ -83,7 +83,8 @@
                     </td>
 
                     <td class="border border-black px-3 py-2 text-center">
-                        <i class="fa-solid fa-pen text-blue-strath hover:cursor-pointer"></i>
+                        <i class="fa-solid fa-pen text-blue-strath hover:cursor-pointer edit-booking"
+                            data-booking={{$booking->id}}></i>
                     </td>
                     <td class="border border-black px-3 py-2 text-center ">
                         <i class="fa-solid fa-trash-can text-red-strath hover:cursor-pointer"></i>
@@ -177,6 +178,22 @@
 
         $(".close-notification").click(function(e){
             $(this).parent().hide();
+        });
+
+        $('.edit-booking').click(function(e){
+            let booking = $(this).data('booking');
+            let row = $(this).parent().parent();
+
+            $.ajax({
+                type: 'get',
+                url: '/admin/bookings/edit/'+booking,
+                success: function(data) {
+
+                    $row.html(data);
+
+                }
+            });
+
         });
 
         async function refresh(response = null){

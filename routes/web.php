@@ -8,6 +8,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ParentStudentController;
 use App\Models\ParentStudent;
 use App\Models\StaffMember;
@@ -59,6 +60,8 @@ Route::middleware(['auth'])->group(function(){
 
         Route::get('parents/{id}', [UserController::class, 'show']);
 
+        Route::get('/student/history', [StudentController::class, 'getStudentHistory'])->name('student.history');
+
         Route::get('/search-student', [StudentController::class, 'studentSearchAction'])->name('student.action');
 
         Route::get('/search-student-name', [StudentController::class, 'getName'])->name('student.name');
@@ -75,6 +78,9 @@ Route::middleware(['auth'])->group(function(){
 
         Route::post('/bookings/assess', [BookingController::class, 'assessBookings'])->name('assess.bookings');
 
+        Route::get('/bookings/edit/{id}', [BookingController::class, 'edit']);
+        
+
         Route::get('/bookings/unassessed', [BookingController::class, 'showUnassessed']);
 
         Route::get('/bookings/assessed', [BookingController::class, 'showAssessed']);
@@ -86,6 +92,9 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/homework', [AssignmentController::class, 'index'])->name('admin.homework.homework');
 
         Route::get('/homework/{classroom}', [AssignmentController::class, 'show'])->name('admin.showHomework');
+
+        Route::get('/notify/detention', [NotificationController::class, 'notifyOnDetention'])->name('notify.detention');
+
 
     });
 

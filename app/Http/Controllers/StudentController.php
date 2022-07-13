@@ -241,4 +241,19 @@ class StudentController extends Controller
             return $data;
     }
 
+    public function getStudentHistory(Request $request){
+
+        $year = $request->year;
+        $student = $request->student;
+
+        $bookings = Booking::where('student_id', $student)->whereYear('created_at', $year)->get();
+
+        $data = [
+            'bookings' => $bookings,
+        ];
+        
+        return view('student.bookings', $data);
+        
+    }
+
 }

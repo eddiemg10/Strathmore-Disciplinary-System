@@ -1,4 +1,3 @@
-// import 'flowbite';
 const mix = require("laravel-mix");
 
 /*

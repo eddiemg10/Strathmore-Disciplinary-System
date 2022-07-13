@@ -77,7 +77,6 @@
             $("#modal-card").removeClass('hidden');
             $("#modal-card").addClass('flex');
             stopScroll();
-            console.log(students);
         })
 
    

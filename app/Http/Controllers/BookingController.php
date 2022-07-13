@@ -225,10 +225,21 @@ class BookingController extends Controller
      * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function edit(Booking $booking)
+    public function edit($booking_id)
     {
-        //
+        
+
+        $booking = Booking::find($booking_id);
+
+        $data = [
+            'booking' => $booking,
+        ];
+
+        return view('components.edit-booking', $data);
+
     }
+
+   
 
     /**
      * Update the specified resource in storage.

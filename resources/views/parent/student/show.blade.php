@@ -37,9 +37,9 @@
         <div class="bg-lime-100 py-10 w-full">
 
             <div class="flex flex-col items-center">
-                <h1 class="text-2xl text-zinc-600">SUMMARY</h1>
+                <h1 class="text-2xl text-zinc-700">SUMMARY</h1>
 
-                <div class="bg-zinc-400 w-[90%] h-[3px] mt-5"></div>
+                <div class="bg-zinc-500 w-[90%] h-[3px] mt-5 mb-8"></div>
             </div>
 
         </div>
@@ -49,10 +49,10 @@
             <p class="text-zinc-700 font-light text-sm">Click on a year to view all bookings</p>
         </div>
 
-        <div class="w-full px-20 mt-20 flex flex-col items-center gap-3">
+        <div class="w-full px-20 mt-20 flex flex-col items-center gap-5">
             @forelse ($history as $year)
             <div class="px-10 w-full flex py-3 text-white bg-blue-strath">
-                <span
+                <span data-year='{{$year->year}}' data-student='{{$student->id}}'
                     class="w-[80%] items-center flex font-bold font-sans text-xl hover:cursor-pointer drop-down justify-start">
                     <i class="fa-solid fa-caret-right fa-lg mr-3  transition"></i>
                     <p> {{$year->year}}</p>
@@ -68,7 +68,7 @@
 
             </div>
 
-            <div class="w-[90%] booking-results"></div>
+            <div class="w-[90%] booking-results hidden"></div>
 
             @empty
             <p class="text-zinc-700 w-full font-light text-center p-10 bg-slate-50">No entered bookings found for
@@ -88,20 +88,50 @@
 
     $('.drop-down').click(function(e){
         var icon = $(this).children("i");
+        var student = $(this).data('student');
+        var year = $(this).data('year');
+        var target = $(this).parent().next('.booking-results');
+
 
         if(icon.hasClass('clicked')){
-
+                
             icon.removeClass('rotate-90 clicked');
+            target.hide();
+                       
         }
 
         else{
+
+            if(icon.hasClass('loaded')){
+
+                target.show();
+            }
+            else{
+                fetchYearBookings(year, student, target);
+                icon.addClass('loaded');
+                target.show();
+
+            }
+
             icon.addClass('rotate-90 clicked');
         }
         
     });
 
 
-    function fetchYearBookings(year, student){
+    function fetchYearBookings(year, student, target){
+
+        $.ajax({
+            url:"{{ route('student.history') }}",
+            method:'GET',
+            data:{year:year, student:student},
+            dataType:'html',
+            success:function(data)
+            {
+                console.log(data);
+                target.html(data);
+            }
+        });
 
     }
 

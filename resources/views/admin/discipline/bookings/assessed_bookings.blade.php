@@ -47,10 +47,63 @@
 
     @endforeach
 
-    <div class="w-full lg:w-[50%] flex justify-center mt-10">
-        <a class="w-[60%] bg-red-strath rounded hover:bg-red-800 transition md:text-base text-sm text-center text-white py-2 px-3 md:px-5 mt-10"
-            href={{route('detentionPDF', ['startDate'=>$startDate, 'endDate'=>$endDate])}}><i
-                class="fa-solid fa-file-pdf pr-4"></i>Download PDF</a>
+    @if(count($detention_list) > 0)
+
+    <div class="w-full flex flex-wrap gap-y-8  justify-center items-center mt-10">
+        <div class="w-full lg:w-[50%] flex justify-center">
+            <a class="w-[80%] bg-red-strath rounded hover:bg-red-800 transition md:text-base text-sm text-center text-white py-2 px-3 md:px-5 "
+                href={{route('detentionPDF', ['startDate'=>$startDate, 'endDate'=>$endDate])}}><i
+                    class="fa-solid fa-file-pdf pr-4"></i>Download PDF</a>
+        </div>
+
+        <div class="w-full lg:w-[50%] flex justify-center">
+            <a id="notify"
+                class="w-[80%] bg-teal-600 rounded hover:bg-teal-700 transition md:text-base text-sm text-center text-white py-2 px-3 md:px-5 "><i
+                    class="fa-solid fa-envelopes-bulk pr-4"></i>Send out Notification</a>
+        </div>
+        {{-- {{route('notify.detention', ['startDate'=>$startDate, 'endDate'=>$endDate])}} --}}
+
     </div>
 
+    <div id="success"
+        class="hidden my-5 text-center font-bold text-green-900 bg-green-50 border-2 border-green-600 rounded-md w-full py-5">
+
+    </div>
+
+    <div id="error"
+        class=" hidden my-5 text-center font-bold text-red-900 bg-red-50 border-2 border-red-700 rounded-md w-full py-5">
+
+    </div>
+
+    @endif
+
 </div>
+
+<script>
+    $( document ).ready(function() {
+
+    $('#notify').click(function(e){
+        
+        $.ajax({
+            url:"{{ route('notify.detention')}}",
+            method:'GET',
+            data:{startDate:"{{$startDate}}", endDate:"{{$endDate}}"},
+            dataType:'json',
+            success:function(data)
+            {
+                // data = JSON.parse(data);
+                console.log(data)
+                if(data.success){
+                    $('#success').html(data.message);
+                    $('#success').show();
+                }
+                else{
+                    $('#error').html(data.message);
+                    $('#error').show();
+                }
+            }
+        });
+    });
+
+});
+</script>
