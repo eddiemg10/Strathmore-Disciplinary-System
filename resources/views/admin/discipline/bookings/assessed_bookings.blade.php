@@ -27,7 +27,7 @@
             @forelse($classBookings['bookings'] as $booking)
             <tr class="odd:bg-white even:bg-slate-50">
 
-                <td class="border border-black px-3 py-2">{{$booking->student->last_name}}</td>
+                <td class="border border-black px-3 py-2">{{$booking->student->first_name}}</td>
                 <td class="border border-black px-3 py-2">{{$booking->student->last_name}}</td>
                 <td class="border border-black px-3 py-2">{{$booking->period}}</td>
                 <td class="border border-black px-3 py-2">{{$booking->offence}}</td>

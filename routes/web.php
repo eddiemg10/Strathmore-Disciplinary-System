@@ -8,6 +8,8 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\ParentStudentController;
+use App\Models\ParentStudent;
 use App\Models\StaffMember;
 
 /*
@@ -53,6 +55,8 @@ Route::middleware(['auth'])->group(function(){
 
         Route::get('parents', [UserController::class, 'index'])->name('admin.parents');
 
+        Route::post('parents/students', [ParentStudentController::class, 'store'])->name('parent-student');
+
         Route::get('parents/{id}', [UserController::class, 'show']);
 
         Route::get('/search-student', [StudentController::class, 'studentSearchAction'])->name('student.action');
@@ -90,6 +94,8 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/', function () {
             return view('parent.index');
         })->name('parent');
+
+        Route::get('/{id}/discipline', [StudentController::class, 'showStudentRecord'])->middleware('belongs_to_parent')->name('parent.records');
     });
 
     Route::group(['prefix' => 'teacher', 'middleware' => ['is_teacher']], function(){

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use App\Models\Booking;
 use App\Models\Classroom;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -107,6 +108,23 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         //
+    }
+
+    // Parent view of child
+    public function showStudentRecord($id){
+
+        $student = Student::find($id);
+        $history = Booking::where('student_id', $id)->select(DB::raw('YEAR(created_at) as year'), DB::raw('COUNT(*) as bookings'))
+                        ->groupBy((DB::raw('YEAR(created_at)')))->get();
+
+
+        $data = [
+            'student' => $student,
+            'history' => $history
+        ];
+        
+        return view('parent.student.show', $data);
+
     }
 
     public function studentSearchAction(Request $request) 

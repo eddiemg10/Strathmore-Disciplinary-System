@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ParentStudent;
+use Exception;
 use Illuminate\Http\Request;
 
 class ParentStudentController extends Controller
@@ -35,7 +36,24 @@ class ParentStudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $parent = $request->parent;
+        $students = json_decode($request->students);
+
+        try{
+            foreach($students as $student){
+                $newEntry = new ParentStudent();
+                $newEntry->user_id = $parent;
+                $newEntry->student_id = $student;
+                $newEntry->save();
+            }
+
+            return ['success' => 'Successfully added students'];
+        } catch(Exception $e){
+            dd($e);
+            return ['error' => 'Error. could not add students'];
+
+        }
+        
     }
 
     /**

@@ -67,6 +67,8 @@ class Kernel extends HttpKernel
         'is_parent' => \App\Http\Middleware\isParent::class,
         'is_teacher' => \App\Http\Middleware\isTeacher::class,
         'role_redirect' => \App\Http\Middleware\roleRedirect::class,
+        'belongs_to_parent' => \App\Http\Middleware\belongsToParent::class,
+
 
 
 

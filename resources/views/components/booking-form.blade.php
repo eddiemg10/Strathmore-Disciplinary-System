@@ -28,7 +28,7 @@
         </div>
 
         <div class="flex flex-col items-center">
-            <table class="table mt-5 mb-7 table-fixed table-striped table-hover w-[70%] text-sm rounded"
+            <table class="table mt-5 mb-7 table-fixed table-striped table-hover w-full md:w-[70%] text-sm rounded"
                 id="students-table">
                 <thead class="w-full rounded bg-zinc-700 text-white text-xs">
                     <tr>

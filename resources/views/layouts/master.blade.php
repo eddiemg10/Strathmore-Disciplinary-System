@@ -8,7 +8,8 @@
     <meta name="csrf-token" content="{{ Session::token() }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css" />
-    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css" />
+    {{--
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css" /> --}}
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -71,8 +72,8 @@
     <div class="mt-16">
         @yield('layout_content')
     </div>
-    <script src="../../../node_modules/flowbite/dist/flowbite.js"></script>
-    <script src="../../../node_modules/flowbite/dist/datepicker.js"></script>
+    {{-- <script src="../../../node_modules/flowbite/dist/flowbite.js"></script>
+    <script src="../../../node_modules/flowbite/dist/datepicker.js"></script> --}}
 </body>
 
 <script>
