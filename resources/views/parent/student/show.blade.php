@@ -128,7 +128,6 @@
             dataType:'html',
             success:function(data)
             {
-                console.log(data);
                 target.html(data);
             }
         });

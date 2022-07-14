@@ -38,10 +38,14 @@
                         class="fa-solid fa-pen "></i>Edit Student
                     Details</button>
 
-                <button id="delete-student" data-id="{{$student->id}}"
-                    class="bg-red-strath py-2 px-3 w-full text-white rounded-md flex justify-center relative items-center gap-x-5 hover:shadow-md hover:cursor-pointer"><i
-                        class="fa-solid fa-trash-can "></i>Delete Student
-                    Record</button>
+                <form method="POST" id="delete-student" action="{{ route('student.delete') }}" class="w-full">
+                    @csrf
+                    <input type="hidden" name="student" value="{{$student->id}}" />
+                    <button data-id="{{$student->id}}"
+                        class="bg-red-strath py-2 px-3 w-full text-white rounded-md flex justify-center relative items-center gap-x-5 hover:shadow-md hover:cursor-pointer"><i
+                            class="fa-solid fa-trash-can "></i>Delete Student
+                        Record</button>
+                </form>
 
 
 
@@ -90,17 +94,28 @@
 <script>
     $( document ).ready(function() {
 
-        // $("#edit-student").click(function(e){
-        //     $("#edit-modal-card").removeClass('hidden');
-        //     $("#edit-modal-card").addClass('flex');
-        //     stopScroll();
-        // })
+        $("#delete-student").submit(function(e){
 
-        // $("#close-edit-modal").click(function(e){
-        //     $("#edit-modal-card").removeClass('flex');
-        //     $("#edit-modal-card").addClass('hidden');
-        //     resumeScroll();
-        // });
+            e.preventDefault();
+
+            if(!confirm('This Student will be permanently deleted')){
+                return;
+            }
+            $(this).unbind('submit').submit()
+
+        });
+
+        $("#edit-student").click(function(e){
+            $("#update-student").removeClass('hidden');
+            $("#update-student").addClass('flex');
+            stopScroll();
+        })
+
+        $(".close-modal").click(function(e){
+            $("#update-student").removeClass('flex');
+            $("#update-student").addClass('hidden');
+            resumeScroll();
+        });
 
 });
 </script>

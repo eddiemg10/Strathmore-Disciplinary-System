@@ -5,7 +5,7 @@
     <!-- Validation Errors -->
     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-    <form method="POST" action="{{ route('register.student') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('student.update') }}" enctype="multipart/form-data">
         @csrf
 
         <!-- First Name -->
@@ -50,7 +50,8 @@
 
 
             <button type="submit"
-                class="w-full bg-sky-900 rounded-md hover:bg-sky-800 afocus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition text-md text-white py-3 px-3">{{$btn}}</button>
+                class="w-full bg-sky-900 rounded-md hover:bg-sky-800 afocus:ring focus:ring-indigo-200 focus:ring-opacity-50 transition text-md text-white py-3 px-3">Update
+                Student</button>
         </div>
     </form>
 </div>

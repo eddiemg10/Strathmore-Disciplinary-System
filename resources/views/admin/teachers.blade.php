@@ -96,13 +96,14 @@
         $("#teachers-table").on('click','tr', function(){
 
             var id = $(this).attr('id');
-            console.log(id)
 
             $.get("/admin/teachers/"+id, function(data, status){
                 $("#search-result").html(data);
                 location.href = "#search-result"; 
             });
         });
+
+        
 
      });
 </script>

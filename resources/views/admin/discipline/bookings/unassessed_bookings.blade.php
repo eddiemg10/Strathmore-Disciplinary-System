@@ -84,10 +84,11 @@
 
                     <td class="border border-black px-3 py-2 text-center">
                         <i class="fa-solid fa-pen text-blue-strath hover:cursor-pointer edit-booking"
-                            data-booking={{$booking->id}}></i>
+                            data-booking={{$booking->id}} data-number={{($i+1)}}></i>
                     </td>
-                    <td class="border border-black px-3 py-2 text-center ">
-                        <i class="fa-solid fa-trash-can text-red-strath hover:cursor-pointer"></i>
+                    <td class="border border-black px-3 py-2 text-center">
+                        <i class="fa-solid fa-trash-can text-red-strath hover:cursor-pointer delete-booking"
+                            data-booking={{$booking->id}}></i>
                     </td>
 
 
@@ -182,17 +183,50 @@
 
         $('.edit-booking').click(function(e){
             let booking = $(this).data('booking');
+            let number = $(this).data('number');
+
             let row = $(this).parent().parent();
 
             $.ajax({
                 type: 'get',
                 url: '/admin/bookings/edit/'+booking,
+                data:{index: number},
                 success: function(data) {
 
-                    $row.html(data);
+                    row.html(data);
 
                 }
             });
+
+        });
+
+        $('.delete-booking').click(function(e){
+            let booking = $(this).data('booking');
+
+            if(confirm('This booking will be permanently deleted')){
+                $.ajax({
+                url: "{{route('booking.delete')}}",
+                type:"POST",
+                data:{
+                    "_token": "{{ csrf_token() }}",
+                    booking:booking,
+                },
+                success: function(data) {
+                    console.log(data)
+                    if(data.success){
+                        refresh();
+                    }
+
+                    else{
+                        $('#error').html="Booking could not be deleted."
+                        $("#error").show();
+
+                    }
+                }
+            });
+            }
+
+            
 
         });
 

@@ -44,9 +44,16 @@ Route::middleware(['auth'])->group(function(){
 
     Route::get('/accountselect', [AccountSelectController::class, 'selectAccount']);
 
+    Route::get('/student/history', [StudentController::class, 'getStudentHistory'])->name('student.history');
+
+
     Route::group(['prefix' => 'admin', 'middleware' => ['is_admin']], function(){
 
         Route::get('students', [StudentController::class, 'index'])->name('admin');
+
+        Route::post('students', [StudentController::class, 'destroy'])->name('student.delete');
+
+        Route::post('students/update', [StudentController::class, 'update'])->name('student.update');
 
         Route::get('students/{id}', [StudentController::class, 'show']);
 
@@ -60,7 +67,7 @@ Route::middleware(['auth'])->group(function(){
 
         Route::get('parents/{id}', [UserController::class, 'show']);
 
-        Route::get('/student/history', [StudentController::class, 'getStudentHistory'])->name('student.history');
+        Route::post('users', [UserController::class, 'destroy'])->name('user.delete');
 
         Route::get('/search-student', [StudentController::class, 'studentSearchAction'])->name('student.action');
 
@@ -80,6 +87,9 @@ Route::middleware(['auth'])->group(function(){
 
         Route::get('/bookings/edit/{id}', [BookingController::class, 'edit']);
         
+        Route::post('/bookings/edit', [BookingController::class, 'update'])->name('booking.edit');
+
+        Route::post('/bookings/delete', [BookingController::class, 'destroy'])->name('booking.delete');
 
         Route::get('/bookings/unassessed', [BookingController::class, 'showUnassessed']);
 

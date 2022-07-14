@@ -1,6 +1,6 @@
 {{-- <div class="flex grow-[3] basis-[532px] flex-col items-center bg-white py-10"> --}}
 
-    <div>
+    <div id="parent-details">
         <div class="flex flex-col items-center">
             <h1 class="text-3xl text-zinc-600 ">Parent Details</h1>
             <div class="bg-slate-100 w-[90%] h-[2px] mt-5"></div>
@@ -42,10 +42,17 @@
                             class="fa-solid fa-pen "></i>Edit parent
                         Details</button>
 
-                    <button id="delete-parent" data-id="{{$parent->id}}"
-                        class="bg-red-strath py-2 px-3 w-full text-white rounded-md flex justify-center relative items-center gap-x-5 hover:shadow-md hover:cursor-pointer"><i
-                            class="fa-solid fa-trash-can "></i>Delete parent
-                        Record</button>
+                    <form method="POST" action="{{ route('user.delete') }}" class="w-full">
+                        @csrf
+                        <input type="hidden" name="user" value="{{$parent->id}}" />
+                        <input type="hidden" name="type" value="parent" />
+
+                        <button id="delete-parent"
+                            class="bg-red-strath py-2 px-3 w-full text-white rounded-md flex justify-center relative items-center gap-x-5 hover:shadow-md hover:cursor-pointer"><i
+                                class="fa-solid fa-trash-can "></i>Delete parent
+                            Record</button>
+
+                    </form>
 
 
 
@@ -240,6 +247,22 @@ $("#submit-btn").click(function(e){
 
 });
 
+
+$("form").submit(function(e){
+
+    e.preventDefault();
+
+    if(!confirm('This User will be permanently deleted')){
+        return;
+    }
+    $(this).unbind('submit').submit()
+
+});
+
+
+$(".close-notification").click(function(e){
+$(this).parent().hide();
+});
 
 
 function clearForm(){

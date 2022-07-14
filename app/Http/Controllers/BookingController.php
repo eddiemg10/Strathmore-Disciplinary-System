@@ -225,7 +225,7 @@ class BookingController extends Controller
      * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function edit($booking_id)
+    public function edit($booking_id, Request $request)
     {
         
 
@@ -233,6 +233,7 @@ class BookingController extends Controller
 
         $data = [
             'booking' => $booking,
+            'index' => $request->index,
         ];
 
         return view('components.edit-booking', $data);
@@ -248,9 +249,25 @@ class BookingController extends Controller
      * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Booking $booking)
+    public function update(Request $request)
     {
-        //
+        $booking =Booking::find($request->booking);
+
+        try{
+            $booking->offence = $request->offence;
+            $booking->period = $request->period;
+            $booking->save();
+
+            $data = [
+                'booking' => $booking,
+                'index' => $request->index,
+            ];
+    
+            return view('components.booking-entry', $data);
+
+        }catch(Exception $e){
+            dd($e);
+        }
     }
 
     /**
@@ -259,9 +276,19 @@ class BookingController extends Controller
      * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Booking $booking)
+    public function destroy(Request $request)
     {
-        //
+
+        try{
+            $booking = Booking::find($request->booking);
+            $booking->delete();
+            return ['success' => true];
+
+
+        }catch(Exception $e){
+            return ['success' => false];
+
+        }
     }
 
     public function getDetentionData($startDate, $endDate){

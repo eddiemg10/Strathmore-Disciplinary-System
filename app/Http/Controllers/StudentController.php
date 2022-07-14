@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Booking;
 use App\Models\Classroom;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -105,9 +106,18 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Student $student)
+    public function destroy(Request $request)
     {
-        //
+        $student = Student::find($request->student);
+        try{
+            $student->delete();
+            return redirect()->route('admin')->with('success', 'Student successfully deleted');
+
+        }catch(Exception $e){
+            return redirect()->route('admin')->with('error', ' Could not delete student');
+
+        }
+
     }
 
     // Parent view of child

@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class StudentRegistrationCard extends Component
+class EditStudent extends Component
 {
     /**
      * Create a new component instance.
@@ -16,16 +16,12 @@ class StudentRegistrationCard extends Component
     public $type;
     public $btn;
 
-
-
     public function __construct($classrooms, $id, $type, $btn)
     {
-        $this->classrooms = $classrooms;
+         $this->classrooms = $classrooms;
         $this->id = $id;
         $this->type = $type;
         $this->btn = $btn;
-
-
     }
 
     /**
@@ -35,6 +31,6 @@ class StudentRegistrationCard extends Component
      */
     public function render()
     {
-        return view('components.student-registration-card');
+        return view('components.edit-student');
     }
 }

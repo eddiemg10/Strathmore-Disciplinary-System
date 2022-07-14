@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ParentStudent;
+use App\Models\StaffMember;
 use App\Models\User;
 use App\Models\UserType;
 use App\Models\UserTypeList;
+use Exception;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 
 class UserController extends Controller
 {
@@ -88,9 +93,41 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Request $request)
     {
-        //
+        
+        try{
+
+            $user = User::find($request->user);
+
+            $user->delete();
+
+            if($request->type == 'parent' ){
+
+                return redirect()->route('admin.parents')->with('success', 'Parent successfully deleted');
+
+            }
+
+            if($request->type == 'teacher'){
+                return redirect()->route('admin.teachers')->with('success', 'Teacher successfully deleted');
+
+            }
+
+        }catch(Exception $e){
+
+            dd($e);
+            if($request->type == 'parent' ){
+                return redirect()->route('admin.parents')->with('error', ' Could not delete parent');
+            }
+
+            if($request->type == 'teacher' ){
+                return redirect()->route('admin.teachers')->with('error', ' Could not delete teacher');
+            }
+
+        }
+        
+
+        
     }
 
     public function parents(){
@@ -123,7 +160,7 @@ class UserController extends Controller
                 ->Where('user_type_id', '=', '1')      
                 ->Where('first_name', 'like', ''.$query.'%')
                 ->orWhere('last_name', 'like', ''.$query.'%')
-                ->Where('user_type_id', '=', '1')  
+                ->Where('user_type_id', '=', '1')
                 ->orderBy('users.id')
                 ->get();
                 
@@ -139,7 +176,7 @@ class UserController extends Controller
                         'users.last_name', 
                         'user_type_lists.user_type_id')
                  
-                ->Where('user_type_id', '=', '1') 
+                ->Where('user_type_id', '=', '1')
                 ->orderBy('users.id')
                 ->get();
             }

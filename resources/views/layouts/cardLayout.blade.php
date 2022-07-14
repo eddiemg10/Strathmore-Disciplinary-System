@@ -12,8 +12,8 @@
 
 <body>
     <!-- Main modal -->
-    <div id="modal-card" tabindex="-1" aria-hidden="true" class=" {{count($errors) > 0 ? " flex" : "hidden" }}
-        bg-slate-900 bg-opacity-80 overflow-x-hidden fixed top-0 inset-x-0 mx-auto right-0 left-0 z-50 w-full inset-0
+    <div id="{{$id ?? 'modal-card'}}" tabindex="-1" aria-hidden="true" class=" {{count($errors) > 0 ? " flex" : "hidden"
+        }} bg-slate-900 bg-opacity-80 overflow-x-hidden fixed top-0 inset-x-0 mx-auto right-0 left-0 z-50 w-full inset-0
         h-modal h-full justify-center items-center">
         <div
             class="relative p-4 w-full {{isset($width) ? 'md:max-w-'.$width :  'md:max-w-2xl'}} h-full md:h-auto md:max-h-[90vh]">
@@ -25,7 +25,7 @@
                         {{$title}}
                     </h3>
                     <button id="close-modal" type="button"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        class="text-gray-400 bg-transparent close-modal hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                         data-modal-toggle="defaultModal">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"

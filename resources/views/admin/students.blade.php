@@ -6,7 +6,11 @@
 
 <div class="flex flex-col items-center pb-40 px-5 md:px-20 gap-y-20">
 
-    <x-student-registration-card title="Student Registration" btn="Register Student" :classrooms="$classrooms" />
+    <x-student-registration-card id="add-student-modal" type="register" title="Student Registration"
+        btn="Register Student" :classrooms="$classrooms" />
+
+    <x-edit-student id="update-student" type="update" title="Student Information" btn="Update Student"
+        :classrooms="$classrooms" />
 
     <div class="bg-white px-10 py-5 shadow-md mt-10 w-full rounded-md flex flex-col items-center gap-y-8">
         <h1 class="text-zinc-700 md:text-3xl text-2xl font-semibold">Student Management</h1>
@@ -90,14 +94,14 @@
     $( document ).ready(function() {
 
         $("#add-student").click(function(e){
-            $("#modal-card").removeClass('hidden');
-            $("#modal-card").addClass('flex');
+            $("#add-student-modal").removeClass('hidden');
+            $("#add-student-modal").addClass('flex');
             stopScroll();
         })
 
-        $("#close-modal").click(function(e){
-            $("#modal-card").removeClass('flex');
-            $("#modal-card").addClass('hidden');
+        $(".close-modal").click(function(e){
+            $("#add-student-modal").removeClass('flex');
+            $("#add-student-modal").addClass('hidden');
             resumeScroll();
         });
 

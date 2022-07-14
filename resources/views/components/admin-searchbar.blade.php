@@ -83,7 +83,6 @@
     $(document).on('keyup', '#search', function(){
     var query = $(this).val();
     var classroom = $('#classroom_id').val();
-    console.log(query+" on class "+classroom);
     // console.log(query);
     fetch_customer_data(query, classroom);
     });
@@ -92,7 +91,6 @@
     $('select').on('change', function() {
         var query = $("#search").val()
         var classroom = $('#classroom_id').val();
-        console.log(query+" on class "+classroom);
 
         fetch_customer_data(query, classroom);
     });
@@ -152,7 +150,6 @@
 
     $(document).on('keyup', '#search', function(){
     var query = $(this).val();
-    console.log(query);
     fetch_customer_data(query);
     });
     });
@@ -209,7 +206,6 @@
 
     $(document).on('keyup', '#search', function(){
     var query = $(this).val();
-    console.log(query);
     fetch_customer_data(query);
     });
     });
@@ -243,7 +239,6 @@ success:function(data)
 $(document).on('keyup', '#search-student', function(){
 var query = $(this).val();
 var classroom = $('#classroom_id').val();
-console.log(query+" on class "+classroom);
 // console.log(query);
 fetch_customer_data(query, classroom);
 });
