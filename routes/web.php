@@ -61,6 +61,10 @@ Route::middleware(['auth'])->group(function(){
 
         Route::get('teachers/{id}', [StaffMemberController::class, 'show']);
 
+        Route::post('teachers/update', [StaffMemberController::class, 'update'])->name('teacher.update');
+
+        Route::post('parents/update', [UserController::class, 'update'])->name('parent.update');
+
         Route::get('parents', [UserController::class, 'index'])->name('admin.parents');
 
         Route::post('parents/students', [ParentStudentController::class, 'store'])->name('parent-student');

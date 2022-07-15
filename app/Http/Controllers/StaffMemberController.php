@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\UserType;
 use App\Models\User;
 use App\Models\Classroom;
+use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
 
 class StaffMemberController extends Controller
 {
@@ -57,9 +60,13 @@ class StaffMemberController extends Controller
     public function show($staffMemberID)
     {
         $teacher = User::find($staffMemberID);
+        $classes = Classroom::all();
+
 
         $data = [
             'teacher' => $teacher,
+            "classrooms" => $classes,
+
         ];
 
 
@@ -84,9 +91,40 @@ class StaffMemberController extends Controller
      * @param  \App\Models\StaffMember  $staffMember
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, StaffMember $staffMember)
+    public function update(Request $request)
     {
-        //
+
+        $teacher = User::find($request->teacher);
+        $staff = StaffMember::where('user_id', $request->teacher)->first();
+
+        try{
+
+            if($request->file('profile_photo')){
+                $file= $request->file('profile_photo');
+                $extension= $request->file('profile_photo')->extension();
+                $filename= date('YmdHi').Str::random(6);
+                $profile_photo= $filename.'.'.$extension;
+                $file-> move(public_path('assets/profile_pictures'), $profile_photo);
+
+                $teacher->profile_photo = $profile_photo;
+                
+            }
+
+            $teacher->first_name = $request->first_name;
+            $teacher->last_name = $request->last_name;
+            $teacher->email = $request->email;
+
+            $staff->staff_number = $request->staff_number;
+            $staff->save();
+
+            $teacher->save();
+            return redirect()->route('admin.teachers')->with('success', $teacher->first_name.' '.$teacher->last_name.'\'s details successfully updated');
+
+
+        }catch(Exception $e){
+            return redirect()->route('admin.teachers')->with('error', $teacher->first_name.' '.$teacher->last_name.'\'s details could not be updated');
+        }
+
     }
 
     /**

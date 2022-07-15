@@ -1,3 +1,5 @@
+<x-edit-student id="update-student" type="update" title="Student Information" :classrooms="$classrooms"
+    :student="$student" />
 <div>
     <div class="flex flex-col items-center">
         <h1 class="text-3xl text-zinc-600">Student Details</h1>
@@ -108,13 +110,11 @@
         $("#edit-student").click(function(e){
             $("#update-student").removeClass('hidden');
             $("#update-student").addClass('flex');
-            stopScroll();
         })
 
         $(".close-modal").click(function(e){
             $("#update-student").removeClass('flex');
             $("#update-student").addClass('hidden');
-            resumeScroll();
         });
 
 });

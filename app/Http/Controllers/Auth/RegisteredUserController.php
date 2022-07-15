@@ -50,9 +50,11 @@ class RegisteredUserController extends Controller
 
         if($request->file('profile_photo')){
             $file= $request->file('profile_photo');
+            $extension= $request->file('profile_photo')->extension();
             $filename= date('YmdHi').Str::random(6);
-            $file-> move(public_path('public/assers/profile_pictures'), $filename);
-            $profile_photo= $filename;
+            $profile_photo= $filename.'.'.$extension;
+            $file-> move(public_path('assets/profile_pictures'), $profile_photo);
+            
         }
 
 
@@ -90,9 +92,11 @@ class RegisteredUserController extends Controller
 
         if($request->file('profile_photo')){
             $file= $request->file('profile_photo');
+            $extension= $request->file('profile_photo')->extension();
             $filename= date('YmdHi').Str::random(6);
-            $file-> move(public_path('public/assers/profile_pictures'), $filename);
-            $profile_photo= $filename;
+            $profile_photo= $filename.'.'.$extension;
+            $file-> move(public_path('assets/profile_pictures'), $profile_photo);
+
         }
 
         try{

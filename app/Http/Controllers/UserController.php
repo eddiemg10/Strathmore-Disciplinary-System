@@ -82,9 +82,24 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        //
+        $parent = User::find($request->parent);
+
+        try{
+
+            $parent->first_name = $request->first_name;
+            $parent->last_name = $request->last_name;
+            $parent->email = $request->email;
+
+            $parent->save();
+
+            return redirect()->route('admin.parents')->with('success', $parent->first_name.' '.$parent->last_name.'\'s details successfully updated');
+
+        }catch(Exception $e){
+            return redirect()->route('admin.parents')->with('error', $parent->first_name.' '.$parent->last_name.'\'s details could not be updated');
+
+        }
     }
 
     /**

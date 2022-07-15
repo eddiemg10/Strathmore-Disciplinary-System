@@ -11,6 +11,8 @@ use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 
 class StudentController extends Controller
@@ -95,9 +97,38 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateStudentRequest $request, Student $student)
+    public function update(Request $request)
     {
-        //
+
+
+        $student = Student::find($request->student);
+
+        
+
+        try{
+
+            if($request->file('profile_photo')){
+                $file= $request->file('profile_photo');
+                $extension= $request->file('profile_photo')->extension();
+                $filename= date('YmdHi').Str::random(6);
+                $profile_photo= $filename.'.'.$extension;
+                $file-> move(public_path('assets/profile_pictures'), $profile_photo);
+
+                $student->profile_photo = $profile_photo;
+                
+            }
+
+            $student->first_name = $request->first_name;
+            $student->last_name = $request->last_name;
+            $student->classroom_id = $request->classroom;
+
+            $student->save();
+            return redirect()->route('admin')->with('success', $student->first_name.' '.$student->last_name.'\'s details successfully updated');
+
+
+        }catch(Exception $e){
+            return redirect()->route('admin')->with('error', $student->first_name.' '.$student->last_name.'\'s details could not be updated');
+        }
     }
 
     /**

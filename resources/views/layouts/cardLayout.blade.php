@@ -22,7 +22,7 @@
                 <!-- Modal header -->
                 <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                        {{$title}}
+                        {{ $title }}
                     </h3>
                     <button id="close-modal" type="button"
                         class="text-gray-400 bg-transparent close-modal hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"

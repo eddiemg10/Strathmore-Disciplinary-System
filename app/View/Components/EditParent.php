@@ -4,29 +4,25 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class EditStudent extends Component
+class EditParent extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public $classrooms;
+
     public $id;
     public $type;
     public $title;
-    public $student;
-
-
-    public function __construct($classrooms, $id, $type, $title, $student)
+    public $parent;
+    
+    public function __construct($id, $type, $title, $parent)
     {
-        $this->classrooms = $classrooms;
         $this->id = $id;
         $this->type = $type;
         $this->title = $title;
-        $this->student = $student;
-
-
+        $this->parent = $parent;
     }
 
     /**
@@ -36,6 +32,6 @@ class EditStudent extends Component
      */
     public function render()
     {
-        return view('components.edit-student');
+        return view('components.edit-parent');
     }
 }

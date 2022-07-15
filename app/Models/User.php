@@ -65,4 +65,6 @@ class User extends Authenticatable
     public function bookings(){
         return $this->hasMany(Booking::class, 'staff_member_id');
     }
+
+ 
 }

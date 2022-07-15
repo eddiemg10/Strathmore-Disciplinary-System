@@ -4,13 +4,13 @@
 @endsection
 @section('content')
 
-<div class="flex flex-col items-center pb-40 px-5 md:px-20 gap-y-20">
+<div class="flex flex-col relative items-center pb-40 px-5 md:px-20 gap-y-20">
+
 
     <x-student-registration-card id="add-student-modal" type="register" title="Student Registration"
         btn="Register Student" :classrooms="$classrooms" />
 
-    <x-edit-student id="update-student" type="update" title="Student Information" btn="Update Student"
-        :classrooms="$classrooms" />
+
 
     <div class="bg-white px-10 py-5 shadow-md mt-10 w-full rounded-md flex flex-col items-center gap-y-8">
         <h1 class="text-zinc-700 md:text-3xl text-2xl font-semibold">Student Management</h1>

@@ -15,15 +15,19 @@ class StudentRegistrationCard extends Component
     public $id;
     public $type;
     public $btn;
+    public $title;
+    
 
 
 
-    public function __construct($classrooms, $id, $type, $btn)
+    public function __construct($classrooms, $id, $type, $btn, $title)
     {
         $this->classrooms = $classrooms;
         $this->id = $id;
         $this->type = $type;
         $this->btn = $btn;
+        $this->title = $title;
+
 
 
     }
