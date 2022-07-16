@@ -15,7 +15,7 @@ class UserTypeSeeder extends Seeder
     public function run()
     {
         \App\Models\UserType::insert([
-            ["type" => "parent"], ["type" => "admin"], ["type" => "teacher"]
+            ["type" => "parent"], ["type" => "admin"], ["type" => "teacher"], ["type" => "senior teacher"]
         ]);
     }
 }

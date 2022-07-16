@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('register-teacher', [RegisteredUserController::class, 'storeTeacher'])->name('register.teacher')->middleware('is_admin');
 
+    Route::post('register-admin', [RegisteredUserController::class, 'storeAdmin'])->name('register.admin')->middleware('is_admin');
+
     Route::post('register-parent', [RegisteredUserController::class, 'storeParent'])->name('register.parent')->middleware('is_admin');
 
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])

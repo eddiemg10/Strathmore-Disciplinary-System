@@ -155,7 +155,7 @@
     });
     </script>
 
-    @elseif ($type == "teacher")
+    @elseif ($type == "teacher" || $type == "admin")
 
     <div class="w-full flex flex-col items-center">
         <h1 class="text-3xl text-zinc-600">{{ $title }}</h1>
@@ -194,7 +194,7 @@
     $.ajax({
     url:"{{ route('teacher.action') }}",
     method:'GET',
-    data:{query:query},
+    data:{query:query, type:"{{$type}}"},
     dataType:'json',
     success:function(data)
     {

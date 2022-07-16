@@ -132,6 +132,55 @@ class RegisteredUserController extends Controller
 
         return redirect()->route('admin.teachers')->with('success', ' Teacher successfully added');
     }
+
+    public function storeAdmin(Request $request)
+    {
+        $request->validate([
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'staff_number' => ['required', 'string', 'min:6', 'unique:staff_members']
+        ]);
+
+        $profile_photo = "default-profile-photo.jpg";
+
+        if($request->file('profile_photo')){
+            $file= $request->file('profile_photo');
+            $extension= $request->file('profile_photo')->extension();
+            $filename= date('YmdHi').Str::random(6);
+            $profile_photo= $filename.'.'.$extension;
+            $file-> move(public_path('assets/profile_pictures'), $profile_photo);
+
+        }
+
+        try{
+            $teacher = User::create([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'profile_photo' => $profile_photo,
+                'email' => $request->email,
+                'password' => Hash::make(Str::random(11)),
+            ]);
+
+            $staffMember = StaffMember::create([
+                'staff_number' => $request->staff_number,
+                'user_id' => $teacher->id,
+            ]);
+
+            $roles = UserTypeList::create([
+                'user_id' => $teacher->id,
+                'user_type_id' => $request->role,
+            ]);
+
+            
+        }
+        catch(Exception $e){
+            return redirect()->route('admin.admins')->with('error', ' Error! Administrator could not be added');
+        }
+        
+
+        return redirect()->route('admin.admins')->with('success', ' Administrator successfully added');
+    }
     
     public function storeParent(Request $request)
     {

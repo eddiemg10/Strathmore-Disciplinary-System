@@ -30,13 +30,13 @@
             <form method="POST" action="{{ route('teacher.update') }}" enctype="multipart/form-data">
                 @csrf
 
-                <input type="hidden" value="{{$teacher->id}} " name="user">
+                <input type="hidden" value="{{$admin->id}} " name="user">
                 <!-- First Name -->
                 <div>
                     <x-label for="first_name" :value="__('First name')" />
 
                     <x-input id="first_name" class="block mt-1 w-full" type="text" name="first_name"
-                        value="{{$teacher->first_name}}" required autofocus />
+                        value="{{$admin->first_name}}" required autofocus />
                 </div>
 
                 <!-- Last Name -->
@@ -44,14 +44,14 @@
                     <x-label for="last_name" :value="__('Last name')" />
 
                     <x-input id="last_name" class="block mt-1 w-full" type="text" name="last_name"
-                        value="{{$teacher->last_name}}" required />
+                        value="{{$admin->last_name}}" required />
                 </div>
 
                 <!-- Email Address -->
                 <div class="mt-4">
                     <x-label for="email" :value="__('Email')" />
 
-                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{$teacher->email}}"
+                    <x-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{$admin->email}}"
                         required />
                 </div>
 
@@ -60,7 +60,7 @@
                     <x-label for="staff_number" :value="__('Staff Number')" />
 
                     <x-input id="staff_number" class="block mt-1 w-full" type="text" name="staff_number"
-                        value="{{$teacher->staff->staff_number}}" required />
+                        value="{{$admin->staff->staff_number}}" required />
                 </div>
 
                 <!-- Profile Photo -->
@@ -75,10 +75,11 @@
                 </div>
 
                 <!-- Role -->
-                <input type="hidden" name="type" value="teacher">
+                <input type="hidden" name="type" value="admin">
 
 
-                <div class="flex items-center justify-end mt-4">
+
+                <div class="flex items-center justify-end mt-5">
 
 
                     <button type="submit"

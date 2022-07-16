@@ -66,5 +66,8 @@ class User extends Authenticatable
         return $this->hasMany(Booking::class, 'staff_member_id');
     }
 
+    public function blocked(){
+        return $this->hasOne(BlockedUser::class);
+    }
  
 }

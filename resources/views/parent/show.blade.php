@@ -53,6 +53,20 @@
 
                 </form>
 
+                <form method="POST" action={{$parent->blocked ? route('user.unblock') : route('user.block') }}
+                    id="block-form" class="w-full">
+                    @csrf
+                    <input type="hidden" name="user" value="{{$parent->id}}" />
+                    <input type="hidden" name="type" value="parent" />
+
+                    <button id="delete-parent" data-id="{{$parent->id}}"
+                        class="{{$parent->blocked ? 'bg-green-700':'bg-zinc-700'}} py-2 px-3 w-full text-white rounded-md flex justify-center relative items-center gap-x-5 hover:shadow-md hover:cursor-pointer"><i
+                            class="fa-solid {{$parent->blocked ? 'fa-lock-open':'fa-ban'}} delete-parent"></i>
+                        {{$parent->blocked ? 'Unblock User': 'Block
+                        User'}}
+                    </button>
+                </form>
+
 
 
             </div>
@@ -257,6 +271,17 @@ $("#delete-form").submit(function(e){
     $(this).unbind('submit').submit()
 
 });
+
+$("#block-form").submit(function(e){
+
+    e.preventDefault();
+
+    if(!confirm('Are you sure you want to block/unblock this user?')){
+        return;
+    }
+    $(this).unbind('submit').submit()
+
+}); 
 
 $("#edit-parent").click(function(e){
     $("#update-parent").removeClass('hidden');

@@ -30,6 +30,16 @@ class StaffMemberController extends Controller
         return view('admin.teachers', $data);
     }
 
+    public function indexAdmins(){
+        $classes = Classroom::all();
+
+        $data = [
+            "classrooms" => $classes,
+        ];
+
+        return view('admin.administrators', $data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -73,6 +83,19 @@ class StaffMemberController extends Controller
         return view("teacher.show", $data);
     }
 
+    public function showAdmin($staffMemberID){
+        $admin = User::find($staffMemberID);
+
+
+        $data = [
+            'admin' => $admin,
+
+        ];
+
+
+        return view("admin.show", $data);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -94,8 +117,8 @@ class StaffMemberController extends Controller
     public function update(Request $request)
     {
 
-        $teacher = User::find($request->teacher);
-        $staff = StaffMember::where('user_id', $request->teacher)->first();
+        $teacher = User::find($request->user);
+        $staff = StaffMember::where('user_id', $request->user)->first();
 
         try{
 
@@ -118,11 +141,22 @@ class StaffMemberController extends Controller
             $staff->save();
 
             $teacher->save();
-            return redirect()->route('admin.teachers')->with('success', $teacher->first_name.' '.$teacher->last_name.'\'s details successfully updated');
 
+            if($request->type == 'teacher'){
+                return redirect()->route('admin.teachers')->with('success', $teacher->first_name.' '.$teacher->last_name.'\'s details successfully updated');
+            }
+            if($request->type == 'admin'){
+                return redirect()->route('admin.admins')->with('success', $teacher->first_name.' '.$teacher->last_name.'\'s details successfully updated');
+            }
 
         }catch(Exception $e){
-            return redirect()->route('admin.teachers')->with('error', $teacher->first_name.' '.$teacher->last_name.'\'s details could not be updated');
+
+            if($request->type == 'teacher'){
+                return redirect()->route('admin.teachers')->with('error', $teacher->first_name.' '.$teacher->last_name.'\'s details could not be updated');
+            }
+            if($request->type == 'admin'){
+                return redirect()->route('admin.admins')->with('error', $teacher->first_name.' '.$teacher->last_name.'\'s details could not be updated');
+            }
         }
 
     }
@@ -144,45 +178,82 @@ class StaffMemberController extends Controller
         {
             $output = '';
             $query = $request->get('query');
+            $type = $request->get('type');
 
-            if($query != '')
-            {
-            //  $data = DB::table('students')
-            //    ->Where('first_name', 'like', '%'.$query.'%')
-            //    ->orWhere('last_name', 'like', '%'.$query.'%')
-            //    ->orderBy('id', 'asc')
-            //    ->get();
+            if($type == 'admin'){
+                if($query != '')
+                {
 
-            $data = DB::table('user_type_lists')
-            ->join('users', 'user_type_lists.user_id', '=', 'users.id')
-            ->select('users.id',
-                    'users.first_name', 
-                    'users.last_name', 
-                    'user_type_lists.user_type_id')
-             
-            ->where('first_name', 'like', ''.$query.'%')
-            ->where('user_type_id', '=', '3')
-            ->orWhere('last_name', 'like', ''.$query.'%')
-            ->where('user_type_id', '=', '3')      
-            ->orderBy('id')
-            ->get();
-                
-            }
-            // ->join(//Google Eloquent Query Builder joins)
-            //   ->where('first_name', 'like', '%'.$query.'%')
-            else
-            {
                 $data = DB::table('user_type_lists')
                 ->join('users', 'user_type_lists.user_id', '=', 'users.id')
                 ->select('users.id',
                         'users.first_name', 
                         'users.last_name', 
                         'user_type_lists.user_type_id')
-                 
-                ->Where('user_type_id', '=', '3')
-                ->orderBy('users.id')
+                
+                ->where('first_name', 'like', ''.$query.'%')
+                ->where('user_type_id', '=', '2')
+                ->orWhere('last_name', 'like', ''.$query.'%')
+                ->where('user_type_id', '=', '2')      
+                ->orderBy('id')
                 ->get();
+                    
+                }
+                // ->join(//Google Eloquent Query Builder joins)
+                //   ->where('first_name', 'like', '%'.$query.'%')
+                else
+                {
+                    $data = DB::table('user_type_lists')
+                    ->join('users', 'user_type_lists.user_id', '=', 'users.id')
+                    ->select('users.id',
+                            'users.first_name', 
+                            'users.last_name', 
+                            'user_type_lists.user_type_id')
+                    
+                    ->Where('user_type_id', '=', '2')
+                    ->orderBy('users.id')
+                    ->get();
+                }
             }
+            else{
+
+            
+                if($query != '')
+                {
+
+                $data = DB::table('user_type_lists')
+                ->join('users', 'user_type_lists.user_id', '=', 'users.id')
+                ->select('users.id',
+                        'users.first_name', 
+                        'users.last_name', 
+                        'user_type_lists.user_type_id')
+                
+                ->where('first_name', 'like', ''.$query.'%')
+                ->where('user_type_id', '=', '3')
+                ->orWhere('last_name', 'like', ''.$query.'%')
+                ->where('user_type_id', '=', '3')      
+                ->orderBy('id')
+                ->get();
+                    
+                }
+                // ->join(//Google Eloquent Query Builder joins)
+                //   ->where('first_name', 'like', '%'.$query.'%')
+                else
+                {
+                    $data = DB::table('user_type_lists')
+                    ->join('users', 'user_type_lists.user_id', '=', 'users.id')
+                    ->select('users.id',
+                            'users.first_name', 
+                            'users.last_name', 
+                            'user_type_lists.user_type_id')
+                    
+                    ->Where('user_type_id', '=', '3')
+                    ->orderBy('users.id')
+                    ->get();
+                }
+            }
+        
+
             $total_row = $data->count();
             if($total_row > 0)
             {

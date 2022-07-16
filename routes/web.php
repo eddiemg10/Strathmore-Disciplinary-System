@@ -8,6 +8,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\BlockedUserController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ParentStudentController;
 use App\Models\ParentStudent;
@@ -26,7 +27,7 @@ use App\Models\StaffMember;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('role_redirect');
 
 Route::get('/clear-flash/{key}', function ($key) {
     session()->forget($key);
@@ -63,6 +64,10 @@ Route::middleware(['auth'])->group(function(){
 
         Route::post('teachers/update', [StaffMemberController::class, 'update'])->name('teacher.update');
 
+        Route::get('administrators', [StaffMemberController::class, 'indexAdmins'])->name('admin.admins');
+
+        Route::get('administrators/{id}', [StaffMemberController::class, 'showAdmin']);
+
         Route::post('parents/update', [UserController::class, 'update'])->name('parent.update');
 
         Route::get('parents', [UserController::class, 'index'])->name('admin.parents');
@@ -72,6 +77,10 @@ Route::middleware(['auth'])->group(function(){
         Route::get('parents/{id}', [UserController::class, 'show']);
 
         Route::post('users', [UserController::class, 'destroy'])->name('user.delete');
+
+        Route::post('users/block', [UserController::class, 'block'])->name('user.block');
+
+        Route::post('users/unblock', [BlockedUserController::class, 'delete'])->name('user.unblock');
 
         Route::get('/search-student', [StudentController::class, 'studentSearchAction'])->name('student.action');
 

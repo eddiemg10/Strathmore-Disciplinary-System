@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlockedUser;
 use App\Models\ParentStudent;
 use App\Models\StaffMember;
 use App\Models\User;
@@ -128,9 +129,13 @@ class UserController extends Controller
 
             }
 
+            if($request->type == 'admin'){
+                return redirect()->route('admin.admins')->with('success', 'Administrator successfully deleted');
+
+            }
+
         }catch(Exception $e){
 
-            dd($e);
             if($request->type == 'parent' ){
                 return redirect()->route('admin.parents')->with('error', ' Could not delete parent');
             }
@@ -139,10 +144,55 @@ class UserController extends Controller
                 return redirect()->route('admin.teachers')->with('error', ' Could not delete teacher');
             }
 
+            if($request->type == 'admin' ){
+                return redirect()->route('admin.admins')->with('error', ' Could not delete administrator');
+            }
+
         }
         
 
         
+    }
+
+    public function block(Request $request){
+        try{
+
+            $blockedUser = new BlockedUser();
+            $blockedUser->user_id = $request->user;
+
+            $blockedUser->save();
+
+            if($request->type == 'parent' ){
+
+                return redirect()->route('admin.parents')->with('success', 'Parent successfully blocked');
+
+            }
+
+            if($request->type == 'teacher'){
+                return redirect()->route('admin.teachers')->with('success', 'Teacher successfully blocked');
+
+            }
+
+            if($request->type == 'admin'){
+                return redirect()->route('admin.admins')->with('success', 'Administrator successfully blocked');
+
+            }
+
+        }catch(Exception $e){
+
+            if($request->type == 'parent' ){
+                return redirect()->route('admin.parents')->with('error', ' Could not block parent');
+            }
+
+            if($request->type == 'teacher' ){
+                return redirect()->route('admin.teachers')->with('error', ' Could not block teacher');
+            }
+
+            if($request->type == 'admin' ){
+                return redirect()->route('admin.admins')->with('error', ' Could not block administrator');
+            }
+
+        }
     }
 
     public function parents(){
