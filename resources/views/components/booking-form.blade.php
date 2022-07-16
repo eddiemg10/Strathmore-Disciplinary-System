@@ -103,7 +103,6 @@
 
                         $('#added-students').append(data.name);
                         students.push({student:id, classroom:studentClassroom});
-                        console.log(students);
 
                         $(".remove-student").on('click', function(){
                             var id = $(this).data('id');
@@ -147,9 +146,7 @@
                         $("#error").show();
 
                     }
-                    console.log(students)
                     clearForm();
-                    console.log(students)
 
                 },
                 error: function(response) {

@@ -29,7 +29,7 @@ class BookingController extends Controller
             "classrooms" => $classes,
         ];
 
-        return view('admin.discipline.behaviour_sheet', $data);
+        return view('teacher.discipline.behaviour_sheet', $data);
     }
 
     public function detention()
@@ -41,7 +41,7 @@ class BookingController extends Controller
             "classrooms" => $classes,
         ];
 
-        return view('admin.discipline.detention', $data);
+        return view('teacher.discipline.detention', $data);
     }
 
 
@@ -126,7 +126,7 @@ class BookingController extends Controller
 
         ];
 
-        return view('admin.discipline.behaviour_sheet_entry', $data);
+        return view('teacher.discipline.behaviour_sheet_entry', $data);
     }
 
     public function showUnassessed(Request $request){
@@ -146,7 +146,7 @@ class BookingController extends Controller
             'endDate' => $endDate,
             'bookings' => $bookings,
         ];
-        return view('admin.discipline.bookings.unassessed_bookings', $data);
+        return view('teacher.discipline.bookings.unassessed_bookings', $data);
 
     }
 
@@ -167,7 +167,7 @@ class BookingController extends Controller
             'detention_list' => $DTList,
 
         ];
-        return view('admin.discipline.bookings.assessed_bookings', $data);
+        return view('teacher.discipline.bookings.assessed_bookings', $data);
     }
 
     public function assessBookings(Request $request){

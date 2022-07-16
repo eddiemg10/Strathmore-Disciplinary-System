@@ -22,7 +22,7 @@ class AccountSelectController extends Controller
 
         if(count($roles) === 1){
 
-            $role = $roles->first()->userType->type; 
+            $role = $this->getRoleName($roles->first()->userType->id); 
             return redirect()->route($role);
         }
 
@@ -34,4 +34,21 @@ class AccountSelectController extends Controller
 
         
     } 
+
+    public function getRoleName($id){
+        switch($id){
+            case 1:
+                return "parent";
+            break;
+
+            case 2:
+                return "admin";
+            break;
+
+            case 3:
+            case 4:
+                return "teacher";
+
+        }
+    }
 }

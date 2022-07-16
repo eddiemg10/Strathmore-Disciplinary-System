@@ -2,12 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\UserTypeList;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\UserTypeList;
 
-class isTeacher
+class isSeniorTeacher
 {
     /**
      * Handle an incoming request.
@@ -18,7 +18,7 @@ class isTeacher
      */
     public function handle(Request $request, Closure $next)
     {
-        $exists = UserTypeList::whereIn('user_type_id', [3, 4])->where('user_id', Auth::id())->count();
+        $exists = UserTypeList::where('user_type_id', 4)->where('user_id', Auth::id())->count();
         
         if($exists < 1){
             return abort(403, 'Unauthorized access to this resource');

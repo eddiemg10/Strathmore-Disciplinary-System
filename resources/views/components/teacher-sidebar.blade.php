@@ -2,31 +2,13 @@
 <div id="main-nav" class="pt-20 z-40 hidden w-[50%] top-0 left-0 md:flex md:w-[20%] fixed h-[100vh] bg-slate-100">
     <div class="flex flex-col gap-y-4 mt-16 items-center text-blue-strath w-full text-sm my-8 px-5">
 
-        <div
+        {{-- <div
             class="{{$focus == 'student' ? 'bg-[#00447D] text-white':'hover:font-semibold hover:shadow-inner' }} flex flex-row w-full h-16 items-center space-x-4 text-sm mx-4 lg:text-base rounded drop-shadow">
             <i class="fa-solid fa-user-graduate ml-4"></i>
-            <p class="pr-4"><a href="{{route('admin')}}">Student Management</a></p>
-        </div>
+            <p class="pr-4"><a href="{{route('teacher')}}">Your Profile</a></p>
+        </div> --}}
 
         <div
-            class="{{$focus == 'teacher' ? 'bg-[#00447D] text-white':'hover:font-semibold hover:shadow-inner' }} flex flex-row w-full h-16 items-center space-x-4 text-sm mx-4 lg:text-base  rounded drop-shadow">
-            <i class="fa-solid fa-user-tie ml-4"></i>
-            <p class="pr-4"><a href="{{route('admin.teachers')}}">Teacher Management</a></p>
-        </div>
-
-        <div
-            class="{{$focus == 'parent' ? 'bg-[#00447D] text-white':'hover:font-semibold hover:shadow-inner' }} w-full flex flex-row h-16 w-full items-center space-x-4 text-sm mx-4 lg:text-base  rounded drop-shadow">
-            <i class="fa-solid fa-children ml-4"></i>
-            <p class=" pr-4"><a href="{{route('admin.parents')}}">Parent Management</a></p>
-        </div>
-
-        <div
-            class="{{$focus == 'admin' ? 'bg-[#00447D] text-white':'hover:font-semibold hover:shadow-inner' }} w-full flex flex-row h-16 items-center space-x-4 text-sm mx-4 lg:text-base  rounded drop-shadow">
-            <i class="fa-solid fa-user-gear ml-4"></i>
-            <p class=" pr-4"><a href="{{route('admin.admins')}}">Administrator Management</a></p>
-        </div>
-
-        {{-- <div
             class="{{$focus == 'discipline' ? 'bg-[#00447D] text-white':'hover:font-semibold hover:shadow-inner' }} w-full flex flex-row h-16 items-center space-x-4 text-sm mx-4 lg:text-base  rounded drop-shadow">
             <i class="fa-solid fa-check-to-slot ml-4"></i>
             <p class="pr-4"><a href="{{route('admin.behavioursheet')}}">Discipline Management</a></p>
@@ -36,7 +18,7 @@
             class="{{$focus == 'homework' ? 'bg-[#00447D] text-white':'hover:font-semibold hover:shadow-inner]' }} w-full flex flex-row h-16 items-center space-x-4 text-sm mx-4 lg:text-base rounded drop-shadow">
             <i class="fa-solid fa-book ml-4"></i>
             <p class="pr-4"><a href="{{route('admin.homework.homework')}}">Homework Management</a></p>
-        </div> --}}
+        </div>
 
 
 
@@ -56,31 +38,13 @@
 
     <div class="flex flex-col gap-y-4 mt-16 items-center text-blue-strath w-full text-sm my-8 px-5">
 
-        <div
+        {{-- <div
             class="{{$focus == 'student' ? 'bg-[#00447D] text-white':'hover:font-semibold hover:shadow-inner' }} flex flex-row w-full h-16 items-center space-x-4 text-sm mx-4 lg:text-base rounded drop-shadow">
             <i class="fa-solid fa-user-graduate ml-4"></i>
-            <p class="pr-4"><a href="{{route('admin')}}">Student Management</a></p>
-        </div>
+            <p class="pr-4"><a href="{{route('teacher')}}">Your Profile</a></p>
+        </div> --}}
 
         <div
-            class="{{$focus == 'teacher' ? 'bg-[#00447D] text-white':'hover:font-semibold hover:shadow-inner' }} flex flex-row w-full h-16 items-center space-x-4 text-sm mx-4 lg:text-base  rounded drop-shadow">
-            <i class="fa-solid fa-user-tie ml-4"></i>
-            <p class="pr-4"><a href="{{route('admin.teachers')}}">Teacher Management</a></p>
-        </div>
-
-        <div
-            class="{{$focus == 'parent' ? 'bg-[#00447D] text-white':'hover:font-semibold hover:shadow-inner' }} w-full flex flex-row h-16 w-full items-center space-x-4 text-sm mx-4 lg:text-base  rounded drop-shadow">
-            <i class="fa-solid fa-children ml-4"></i>
-            <p class=" pr-4"><a href="{{route('admin.parents')}}">Parent Management</a></p>
-        </div>
-
-        <div
-            class="{{$focus == 'admin' ? 'bg-[#00447D] text-white':'hover:font-semibold hover:shadow-inner' }} w-full flex flex-row h-16 items-center space-x-4 text-sm mx-4 lg:text-base  rounded drop-shadow">
-            <i class="fa-solid fa-user-gear ml-4"></i>
-            <p class=" pr-4"><a href="{{route('admin.admins')}}">Administrator Management</a></p>
-        </div>
-
-        {{-- <div
             class="{{$focus == 'discipline' ? 'bg-[#00447D] text-white':'hover:font-semibold hover:shadow-inner' }} w-full flex flex-row h-16 items-center space-x-4 text-sm mx-4 lg:text-base  rounded drop-shadow">
             <i class="fa-solid fa-check-to-slot ml-4"></i>
             <p class="pr-4"><a href="{{route('admin.behavioursheet')}}">Discipline Management</a></p>
@@ -90,7 +54,7 @@
             class="{{$focus == 'homework' ? 'bg-[#00447D] text-white':'hover:font-semibold hover:shadow-inner]' }} w-full flex flex-row h-16 items-center space-x-4 text-sm mx-4 lg:text-base rounded drop-shadow">
             <i class="fa-solid fa-book ml-4"></i>
             <p class="pr-4"><a href="{{route('admin.homework.homework')}}">Homework Management</a></p>
-        </div> --}}
+        </div>
 
 
 
@@ -105,14 +69,6 @@
     @switch($focus)
     @case('student')
     <i class="fa-solid fa-user-graduate fa-lg mb-2"></i>
-    @break
-
-    @case('teacher')
-    <i class="fa-solid fa-user-tie fa-lg mb-2"></i>
-    @break
-
-    @case('parent')
-    <i class="fa-solid fa-children fa-lg mb-2"></i>
     @break
 
     @case('discipline')
@@ -137,7 +93,7 @@
     
         
         $("#mobile-toggle").click(function(e){
-            $("#mobile-nav").slideDown();
+            $("#mobile-nav").slideToggle('slow', 'swing');
 
         });
 
