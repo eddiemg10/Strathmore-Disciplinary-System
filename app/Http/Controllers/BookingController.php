@@ -6,6 +6,7 @@ use App\Models\Booking;
 use Illuminate\Http\Request;
 use App\Models\Classroom;
 use App\Models\Student;
+use App\Models\Warning;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -181,6 +182,8 @@ class BookingController extends Controller
                 $booking->updated_by = Auth::User()->id;
                 $booking->save();
 
+                $this->notifyWarnings($booking->id);
+
             }
 
             return ['success'=>'Bookings Successfully assessed'];
@@ -342,6 +345,94 @@ class BookingController extends Controller
         }
 
         return $DTList;
+    }
+
+    public function notifyWarnings($booking){
+
+        $student = Booking::find($booking)->student;
+
+        $bookingCount = Booking::where('student_id', $student->id)->where('assessment', '>', 0)->whereYear('created_at', date('Y'))->count();
+
+        $warnings = Warning::whereYear('created_at', date('Y'));
+
+        if($bookingCount >= 4 && $bookingCount < 8){
+            $warnings = $warnings->where('student_id', $student->id)->where('type', 'verbal');
+
+            if(!Warning::whereYear('created_at', date('Y'))->where('student_id', $student->id)->where('type', 'verbal')->where('resolved', 1)->exists()){
+            
+            
+                if($warnings->where('resolved', 0)->exists()){
+                    $warning = $warnings->where('resolved', 0)->first();
+                    $warning->bookings = $bookingCount;
+
+                    $warning->save();
+                }
+                else{
+                    
+                    $warning = new Warning();
+                    $warning->student_id = $student->id;
+                    $warning->type = 'verbal';
+                    $warning->bookings = $bookingCount;
+                    $warning->resolved = 0;
+
+                    $warning->save();
+              
+                }
+            }
+        }
+
+        if($bookingCount >= 8 && $bookingCount < 12){
+            $warnings->where('student_id', $student->id)->where('type', 'letter');
+            
+            if(!Warning::whereYear('created_at', date('Y'))->where('student_id', $student->id)->where('type', 'letter')->where('resolved', 1)->exists()){
+                if($warnings->where('resolved', 0)->exists()){
+                    $warning = $warnings->where('resolved', 0)->first();
+                    $warning->bookings = $bookingCount;
+
+                    $warning->save();
+                }
+                else{
+                   
+                    $warning = new Warning();
+                    $warning->student_id = $student->id;
+                    $warning->type = 'letter';
+                    $warning->bookings = $bookingCount;
+                    $warning->resolved = 0;
+
+                    $warning->save();
+                    
+                }
+            }
+        }
+
+        if($bookingCount >12){
+
+            $warnings->where('student_id', $student->id)->where('type', 'suspension');
+            
+            if(!Warning::whereYear('created_at', date('Y'))->where('student_id', $student->id)->where('type', 'suspension')->where('resolved', 1)->exists()){
+                if($warnings->where('resolved', 0)->exists()){
+                    $warning = $warnings->where('resolved', 0)->first();
+                    $warning->bookings = $bookingCount;
+
+                    $warning->save();
+                    return $warning;
+                }
+                else{
+                    
+                    $warning = new Warning();
+                    $warning->student_id = $student->id;
+                    $warning->type = 'suspension';
+                    $warning->bookings = $bookingCount;
+                    $warning->resolved = 0;
+
+                    $warning->save();
+                
+                }
+            }
+
+        }
+
+        return $bookingCount;
     }
 
     public function stringToHumanTime($str){

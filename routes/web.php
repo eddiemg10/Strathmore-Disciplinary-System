@@ -11,6 +11,7 @@ use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\BlockedUserController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ParentStudentController;
+use App\Http\Controllers\WarningController;
 use App\Models\ParentStudent;
 use App\Models\StaffMember;
 
@@ -140,6 +141,13 @@ Route::middleware(['auth'])->group(function(){
 
         Route::get('/notify/detention', [NotificationController::class, 'notifyOnDetention'])->name('notify.detention');
         //Migrated Routed end here
+
+        Route::get('/updates', [WarningController::class, 'index'])->name('discipline.updates')->middleware('is_senior');
+
+        Route::post('/updates', [WarningController::class, 'resolve'])->name('discipline.resolve')->middleware('is_senior');
+
+        // Route::get('/history', [BookingController::class, 'showHistory'])->name('discipline.history')->middleware('is_senior');
+
     });
     
 });

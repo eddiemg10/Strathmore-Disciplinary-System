@@ -2,18 +2,23 @@
 
 namespace App\View\Components;
 
+use App\Models\Warning;
 use Illuminate\View\Component;
 
-class discipline-sliding-tab extends Component
+class DisciplineSlidingTab extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public $notifications;
+    public $focus;
+
+    public function __construct($focus)
     {
-        //
+        $this->focus = $focus;
+        $this->notifications = Warning::whereYear('created_at', date('Y'))->where('resolved', 0)->count();
     }
 
     /**

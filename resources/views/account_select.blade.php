@@ -28,12 +28,14 @@
 
             <div class="w-[90%] h-[1.5px] bg-slate-200 rounded-full mb-5"></div>
 
-            @foreach($roles as $role)
-            <a href="{{route($role->userType->type)}}"
-                class="border-solid border rounded-lg hover:cursor-pointer hover:bg-slate-50 transition border-gray-400 py-2 px-10">
-                {{$role->userType->type}} account
-            </a>
-            @endforeach
+            <div class="px-10 gap-y-5 flex flex-col items-center">
+                @foreach($roles as $role)
+                <a href="{{route(App\Http\Controllers\AccountSelectController::getRoleName($role->userType->id))}}"
+                    class="border-solid border rounded-lg hover:cursor-pointer hover:bg-slate-50 w-full text-center transition border-gray-400 py-2 px-10">
+                    {{$role->userType->type}} account
+                </a>
+                @endforeach
+            </div>
         </div>
     </div>
 </body>
