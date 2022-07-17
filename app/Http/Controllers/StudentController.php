@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Booking;
 use App\Models\Classroom;
 use App\Models\User;
+use App\Models\Warning;
+use DateTime;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -173,16 +175,36 @@ class StudentController extends Controller
         $student = Student::find($id);
         $history = Booking::where('student_id', $id)->select(DB::raw('YEAR(created_at) as year'), DB::raw('COUNT(*) as bookings'))
                         ->groupBy((DB::raw('YEAR(created_at)')))->get();
+        $warnings = Warning::where('student_id', $id)->where('resolved', 1)->whereYear('updated_at', date('Y'))->get();
+
+        $week = date('W');
+        $dateRange = $this->getStartAndEndDate($week, 2022);
+
+
+        $bookings = Booking::where('student_id', $id)->whereBetween('created_at', [$dateRange['week_start'], $dateRange['week_end']])->get();
+
 
 
         $data = [
             'student' => $student,
-            'history' => $history
+            'history' => $history,
+            'warnings' => $warnings,
+            'bookings' => $bookings,
         ];
         
         return view('parent.student.show', $data);
 
     }
+
+    public function getStartAndEndDate($week, $year) {
+        $dto = new DateTime();
+        $dto->setISODate($year, $week);
+        $ret['week_start'] = $dto->format('Y-m-d');
+        $dto->modify('+6 days');
+        $ret['week_end'] = $dto->format('Y-m-d');
+        return $ret;
+      }
+
 
      // Teacher view of child
      public function showStudentHistory(Request $request){

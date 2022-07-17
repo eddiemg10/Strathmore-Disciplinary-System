@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\BlockedUserController;
+use App\Http\Controllers\DetentionController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ParentStudentController;
 use App\Http\Controllers\WarningController;
@@ -140,8 +141,10 @@ Route::middleware(['auth'])->group(function(){
 
         Route::get('/homework/{classroom}', [AssignmentController::class, 'show'])->name('admin.showHomework');
 
-        Route::get('/notify/detention', [NotificationController::class, 'notifyOnDetention'])->name('notify.detention');
+        Route::get('/notify/detention', [NotificationController::class, 'notifyOnDetention'])->name('notify.detention')->middleware('is_senior');;
         //Migrated Routed end here
+
+        Route::get('/detention/confirm', [DetentionController::class, 'cofirmDetention'])->name('confirm.detention');
 
         Route::get('/updates', [WarningController::class, 'index'])->name('discipline.updates')->middleware('is_senior');
 

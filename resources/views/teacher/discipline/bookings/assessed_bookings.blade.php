@@ -57,7 +57,7 @@
         </div>
 
         <div class="w-full lg:w-[50%] flex justify-center">
-            <a id="notify"
+            <a id="notify-modal"
                 class="w-[80%] bg-teal-600 rounded hover:bg-teal-700 transition md:text-base text-sm text-center text-white py-2 px-3 md:px-5 "><i
                     class="fa-solid fa-envelopes-bulk pr-4"></i>Send out Notification</a>
         </div>
@@ -81,6 +81,25 @@
 
 <script>
     $( document ).ready(function() {
+
+
+   
+
+    $("#notify-modal").click(function(e){
+            $("#notify-parents-modal").removeClass('hidden');
+            $("#notify-parents-modal").addClass('flex');
+            $("#startDate").val("{{$startDate}}");
+            $("#endDate").val("{{$endDate}}");
+
+
+            stopScroll();
+        })
+
+    $(".close-modal").click(function(e){
+        $("#notify-parents-modal").removeClass('flex');
+        $("#notify-parents-modal").addClass('hidden');
+        resumeScroll();
+    });
 
     $('#notify').click(function(e){
         

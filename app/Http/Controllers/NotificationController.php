@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Detention as ModelsDetention;
 use App\Models\Student;
 use App\Models\User;
 use App\Notifications\Detention;
@@ -16,9 +17,11 @@ class NotificationController extends Controller
 
         $startDate = $request->startDate;
         $endDate = $request->endDate;
+        $detentionDate = $request->detentionDate;
 
         $humanStartDate = date('jS F Y',strtotime($startDate));
         $humanEndDate = date('jS F Y',strtotime($endDate));
+        $humanDetentionDate = date('jS F Y',strtotime($detentionDate));
 
 
         $DTList = app('App\Http\Controllers\BookingController')->getDetentionData($startDate, $endDate);
@@ -34,6 +37,9 @@ class NotificationController extends Controller
 
         try{
 
+            $detention = new ModelsDetention();
+            $detention->detention_date = $detentionDate;
+            $detention->save();
        
             foreach($students as $student_id){
                 $student = Student::find($student_id);
@@ -43,7 +49,7 @@ class NotificationController extends Controller
                         'message' => 'Kindly note that your son, '.$student->first_name.' '.$student->last_name.' has detention due to disciplinary booking he received from '.$humanStartDate.' to '.$humanEndDate,
                         'action' => 'Check '.$student->first_name.'\'s disciplinary record',
                         'url' => route('parent.records', ['id'=>$student->id]),
-                        'signoff' => 'Thank you'
+                        'signoff' => 'Kindly ensure your son is in school on '.$humanDetentionDate.' for the detention'
                     ];
 
                     $parent->notify(new Detention((object)$notificationData));

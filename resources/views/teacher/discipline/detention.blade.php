@@ -5,6 +5,8 @@
 @section('content')
 
 
+<x-detention-notification-card title="Detention notification" id="notify-parents-modal" />
+
 
 <div class="flex flex-col items-center pb-40 px-5 md:px-20 gap-y-20">
 

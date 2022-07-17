@@ -34,12 +34,126 @@
 
     <div class="bg-white flex flex-col items-center px-5 md:px-10 pt-10 drop-shadow-md pb-40 w-full">
 
-        <div class="bg-lime-100 py-10 w-full">
+        <div class="bg-green-50 py-10 w-full">
 
             <div class="flex flex-col items-center">
-                <h1 class="text-2xl text-zinc-700">SUMMARY</h1>
+                <h1 class="text-3xl text-zinc-700 mb-20">RECENT UPDATES</h1>
 
-                <div class="bg-zinc-500 w-[90%] h-[3px] mt-5 mb-8"></div>
+                {{-- <div class="bg-zinc-500 w-[90%] h-[3px] mt-5 mb-8"></div> --}}
+
+                <div class="w-full px-20">
+                    <h1 class="text-2xl text-zinc-700 font-semibold">This week's Bookings</h1>
+                    <div class="bg-zinc-300 w-full h-[1px] mt-5 mb-8"></div>
+
+                    @if(count($bookings) > 0)
+                    <div class="flex flex-col items-center px-20 w-full">
+                        <table class="border-collapse border w-full border-zinc-500">
+                            <thead>
+                                <tr class="bg-green-200 py-3">
+                                    <th class="border border-zinc-500 ">Booking</th>
+                                    <th class="border border-zinc-500 ">Period</th>
+                                    <th class="border border-zinc-500 ">Date</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach ($bookings as $booking)
+                                <tr class="py-2">
+                                    <td class="pl-5 border border-zinc-500 ">{{$booking->offence}}</td>
+                                    <td class="pl-5 border border-zinc-500 ">{{$booking->period}}</td>
+                                    <td class="pl-5 border border-zinc-500 ">{{date('jS F
+                                        Y',strtotime($booking->created_at))}}</td>
+
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    @endif
+
+                </div>
+
+                <div class="w-full px-20 mt-20">
+                    <h1 class="text-2xl text-zinc-700 font-semibold">Warnings</h1>
+                    <div class="bg-zinc-300 w-full h-[1px] mt-5 mb-8"></div>
+
+                    @forelse ($warnings as $warning)
+                    <div class="mt-9 pl-10">
+                        @switch($warning->type)
+                        @case('verbal')
+                        <p class="font-bold text-zinc-700 text-lg"> Verbal Warning: <span class="font-light">A verbal
+                                warning
+                                was
+                                issued to
+                                <span class="font-semibold text-blue-strath">{{$student->first_name.'
+                                    '.$student->last_name}}</span> on
+                                <span class="font-semibold text-blue-strath">{{ date('jS F
+                                    Y',strtotime($warning->updated_at))}}</span></span>
+                        </p>
+
+                        <p
+                            class="font-light text-zinc-600 bg-green-100 text-center py-1 border mt-2 px-5 border-green-600">
+                            A
+                            verbal warning is an oral
+                            warning given to
+                            students who
+                            have accumulated
+                            more than 4
+                            disciplinary bookings within the same school year. {{$student->first_name}} risks receiving
+                            a warning letter should he surpass 8 bookings this year</p>
+
+                        @break
+
+                        @case('letter')
+                        <p class="font-bold text-zinc-700 text-lg">Warning Letter: <span class="font-light">A Warning
+                                Letter
+                                was
+                                issued to
+                                <span class="font-semibold text-blue-strath">{{$student->first_name.'
+                                    '.$student->last_name}}</span> on
+                                <span class="font-semibold text-blue-strath">{{ date('jS F
+                                    Y',strtotime($warning->updated_at))}}</span></span>
+                        </p>
+
+                        <p
+                            class="font-light text-zinc-600 bg-green-100 text-center py-1 border mt-2 px-5 border-green-600">
+                            A
+                            warning letter is an official letter from the school
+                            given to
+                            students who
+                            have accumulated
+                            more than 8
+                            disciplinary bookings within the same school year. Your son should produce this letter to
+                            you which should be signed and returned to the school. {{$student->first_name}} risks
+                            receiving
+                            a suspension should he surpass 12 bookings this year</p>
+                        @break
+
+                        @case('suspension')
+                        <p class="font-bold text-zinc-700 text-lg"> Suspension: <span class="font-light">A suspension
+                                was
+                                issued to
+                                <span class="font-semibold text-blue-strath">{{$student->first_name.'
+                                    '.$student->last_name}}</span> on
+                                <span class="font-semibold text-blue-strath">{{ date('jS F
+                                    Y',strtotime($warning->updated_at))}}</span></span>
+                        </p>
+
+                        <p
+                            class="font-light text-zinc-600 bg-green-100 text-center py-1 border mt-2 px-5 border-green-600">
+                            A suspension is a punishment given to students who have surpassed 12 bookings in the same
+                            school year. {{$student->first_name}} risks receiving
+                            a longer suspension should his discipline fail to improve within the year</p>
+                        @break
+
+                        @endswitch
+                    </div>
+                    @empty
+
+                    @endforelse
+                </div>
             </div>
 
         </div>
