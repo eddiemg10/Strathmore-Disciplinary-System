@@ -79,6 +79,22 @@ class StudentController extends Controller
         return view("student.show", $data);
     }
 
+    public function showStudentTeacher($studentID)
+    {
+        $student = Student::find($studentID);
+        $history = Booking::where('student_id', $studentID)->select(DB::raw('YEAR(created_at) as year'), DB::raw('COUNT(*) as bookings'))
+        ->groupBy((DB::raw('YEAR(created_at)')))->get();
+
+
+        $data = [
+            'student' => $student,
+            'history' => $history
+        ];
+
+
+        return view("student.history", $data);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -165,6 +181,25 @@ class StudentController extends Controller
         ];
         
         return view('parent.student.show', $data);
+
+    }
+
+     // Teacher view of child
+     public function showStudentHistory(Request $request){
+
+        $classes = Classroom::all();
+        $students = Student::all()->take(30);
+        $selected = $request->student;
+
+
+        $data = [
+            "classrooms" => $classes,
+            "students" =>$students,
+            'selected' => $selected,
+        ];
+
+        
+        return view('teacher.discipline.history', $data);
 
     }
 
@@ -281,6 +316,7 @@ class StudentController extends Controller
 
             return $data;
     }
+
 
     public function getStudentHistory(Request $request){
 

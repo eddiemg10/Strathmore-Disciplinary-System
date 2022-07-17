@@ -14,11 +14,69 @@
         </div>
     </div>
 
-    <div class="bg-white flex flex-col items-center pt-10 drop-shadow-md pb-40 w-full">
-        <h1 class="text-3xl text-zinc-600">Detention</h1>
+    <div class="flex flex-col items-center pt-10 pb-40 w-full">
+        <div class="flex flex-wrap lg:flex-nowrap gap-x-5 sm:gap-y-10 w-full">
 
-        <div class="bg-slate-100 w-[90%] h-[3px] mt-5"></div>
+            {{-- <div class="flex grow min-w-[16rem] table-fixed flex-col bg-white drop-shadow-md py-10"> --}}
+                <x-admin-searchbar title="Find Student" title2="Admission Number" :classrooms="$classrooms"
+                    type="student" />
+                {{--
+            </div> --}}
 
+            {{-- search results --}}
+            <div id="search-result"
+                class="flex grow-[3] basis-[532px]  flex-col items-center drop-shadow-md bg-white py-10">
+
+                <div class="animate-pulse w-full">
+                    <div class="flex flex-col items-center w-full">
+                        <h1 class="text-3xl text-zinc-600">No search results</h1>
+
+                        <div class="bg-slate-100 w-[90%] h-[2px] mt-5"></div>
+
+                        <div class="mt-20 w-full flex flex-col lg:flex-row gap-y-5 lg:items-center">
+                            <div class="w-full lg:w-[50%] px-8">
+                                <div class="w-60 rounded-md shadow-lg h-48 bg-slate-100">
+
+                                </div>
+                            </div>
+
+                            <div class="w-full lg:w-[50%] px-5 flex flex-col gap-y-5 items-center">
+
+                                <div class="bg-slate-100 shadow-xl  text-center w-full h-28 rounded-md py-5">
+
+
+                                </div>
+
+                                <button
+                                    class="bg-slate-100 shadow-md py-5 px-3 w-full text-white rounded-md mt-6 mb-2 flex justify-center relative items-center gap-x-5 hover:shadow-md hover:cursor-pointer"></button>
+
+                                <button
+                                    class="bg-slate-100 shadow-md py-5 px-3 w-full text-white rounded-md flex justify-center relative items-center gap-x-5 hover:shadow-md hover:cursor-pointer">
+                                </button>
+
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col items-center">
+                        <div class="bg-slate-100 w-[90%] h-[2px] mt-16"></div>
+
+                    </div>
+
+                    <div class="w-full px-10">
+                        <div class="w-full bg-slate-100 shadow-md h-32 px-5 mt-24 flex justify-center">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
 
 
 
@@ -29,4 +87,25 @@
 
 </div>
 
+<script>
+    $( document ).ready(function() {
+
+        $("#students-table").on('click','tr', function(){
+            var id = $(this).attr('id');
+            $.get("/teacher/students/"+id, function(data, status){
+                $("#search-result").html(data);
+                location.href = "#search-result"; 
+            });
+        });
+
+        if('{{isset($selected)}}'){
+            var id = "{{$selected}}";
+            $.get("/teacher/students/"+id, function(data, status){
+                $("#search-result").html(data);
+                location.href = "#search-result"; 
+            });
+        }
+
+     });
+</script>
 @endsection

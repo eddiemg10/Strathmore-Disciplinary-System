@@ -32,7 +32,7 @@ $isSenior = true;
     </div>
     <div
         class="{{($focus==='history')  ? 'text-blue-strath font-bold border-b-4 border-[#00447D]' : '' }} w-[25%] flex flex-col items-center">
-        <a href="{{route('student.history')}}" class="hover: cursor-pointer">History</a>
+        <a href="{{route('discipline.history')}}" class="hover: cursor-pointer">History</a>
     </div>
     @endif
 </div>

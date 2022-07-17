@@ -15,7 +15,7 @@
         </div>
 
         <div
-            class="{{$focus == 'homework' ? 'bg-[#00447D] text-white':'hover:font-semibold hover:shadow-inner]' }} w-full flex flex-row h-16 items-center space-x-4 text-sm mx-4 lg:text-base rounded drop-shadow">
+            class="{{$focus == 'homework' ? 'bg-[#00447D] text-white':'hover:font-semibold hover:shadow-inner' }} w-full flex flex-row h-16 items-center space-x-4 text-sm mx-4 lg:text-base rounded drop-shadow">
             <i class="fa-solid fa-book ml-4"></i>
             <p class="pr-4"><a href="{{route('admin.homework.homework')}}">Homework Management</a></p>
         </div>
@@ -51,7 +51,7 @@
         </div>
 
         <div
-            class="{{$focus == 'homework' ? 'bg-[#00447D] text-white':'hover:font-semibold hover:shadow-inner]' }} w-full flex flex-row h-16 items-center space-x-4 text-sm mx-4 lg:text-base rounded drop-shadow">
+            class="{{$focus == 'homework' ? 'bg-[#00447D] text-white':'hover:font-semibold hover:shadow-inner' }} w-full flex flex-row h-16 items-center space-x-4 text-sm mx-4 lg:text-base rounded drop-shadow">
             <i class="fa-solid fa-book ml-4"></i>
             <p class="pr-4"><a href="{{route('admin.homework.homework')}}">Homework Management</a></p>
         </div>

@@ -16,6 +16,12 @@
 
     <div class="bg-white flex flex-col items-center pt-10 px-10 drop-shadow-md pb-40 w-full">
 
+        <div class="flex gap-5 mb-10">
+            <a class="text-blue-strath hover:cursor-pointer border-b-4 border-[#00447D] font-semibold">Unresolved
+                Warnings</a>
+            <a href="{{route('updates.resolved')}}">Resolved Warnings</a>
+        </div>
+
         <div class="flex flex-col items-start w-full px-20 mt-20">
 
             <h1 class="text-3xl text-zinc-600 font-semibold">Verbal Warning</h1>
@@ -27,8 +33,9 @@
                 @foreach($verbals as $i=>$verbal)
                 <div class="display-flex items-center">
                     {{($i+1).'. '}}
-                    <a href="#" class="text-blue-strath underline">{{$verbal->student->first_name.'
-                        '.$verbal->student->first_name.'
+                    <a href="{{route('discipline.history', ['student'=>$verbal->student->id])}}"
+                        class="text-blue-strath underline">{{$verbal->student->first_name.'
+                        '.$verbal->student->last_name.'
                         ('.$verbal->student->classroom->name.')'}}</a>
 
                     <form method="POST" action="{{route('discipline.resolve')}}" class="inline-flex  resolve-form">
@@ -58,8 +65,9 @@
                 @foreach($letters as $i=>$letter)
                 <div class="display-flex items-center">
                     {{($i+1).'. '}}
-                    <a href="#" class="text-blue-strath underline">{{$letter->student->first_name.'
-                        '.$letter->student->first_name.'
+                    <a href="{{route('discipline.history', ['student'=>$letter->student->id])}}"
+                        class="text-blue-strath underline">{{$letter->student->first_name.'
+                        '.$letter->student->last_name.'
                         ('.$letter->student->classroom->name.')'}}</a>
 
                     <form method="POST" action="{{route('discipline.resolve')}}" class="inline-flex  resolve-form">
@@ -80,7 +88,7 @@
 
         <div class="flex flex-col items-start w-full px-20 mt-20">
 
-            <h1 class="text-3xl text-zinc-600 font-semibold">Further Action</h1>
+            <h1 class="text-3xl text-zinc-600 font-semibold">Suspension</h1>
             <p class="mt-5 text-zinc-600">The following students have a total of more than 8 disciplinary bookings and
                 require further disciplinary action</p>
 
@@ -88,8 +96,9 @@
                 @foreach($suspensions as $i=>$suspension)
                 <div class="display-flex items-center ">
                     {{($i+1).'. '}}
-                    <a href="#" class="text-blue-strath underline">{{$suspension->student->first_name.'
-                        '.$suspension->student->first_name.'
+                    <a href="{{route('discipline.history', ['student'=>$suspension->student->id])}}"
+                        class="text-blue-strath underline">{{$suspension->student->first_name.'
+                        '.$suspension->student->last_name.'
                         ('.$suspension->student->classroom->name.')'}}</a>
 
                     <form method="POST" action="{{route('discipline.resolve')}}" class="inline-flex resolve-form">

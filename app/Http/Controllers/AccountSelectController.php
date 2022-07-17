@@ -35,7 +35,7 @@ class AccountSelectController extends Controller
         
     } 
 
-    public function getRoleName($id){
+    public static function getRoleName($id){
         switch($id){
             case 1:
                 return "parent";

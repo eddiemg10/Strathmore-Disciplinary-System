@@ -14,6 +14,7 @@ use App\Http\Controllers\ParentStudentController;
 use App\Http\Controllers\WarningController;
 use App\Models\ParentStudent;
 use App\Models\StaffMember;
+use App\Models\Student;
 
 /*
 |--------------------------------------------------------------------------
@@ -145,8 +146,14 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/updates', [WarningController::class, 'index'])->name('discipline.updates')->middleware('is_senior');
 
         Route::post('/updates', [WarningController::class, 'resolve'])->name('discipline.resolve')->middleware('is_senior');
+    
+        Route::get('/updates/resolved', [WarningController::class, 'showResolved'])->name('updates.resolved')->middleware('is_senior');
 
-        // Route::get('/history', [BookingController::class, 'showHistory'])->name('discipline.history')->middleware('is_senior');
+        Route::get('/updates/resolved/history', [WarningController::class, 'getWarningHistory'])->name('warnings.history')->middleware('is_senior');
+
+        Route::get('/history', [StudentController::class, 'showStudentHistory'])->name('discipline.history')->middleware('is_senior');
+
+        Route::get('/students/{id}', [StudentController::class, 'showStudentTeacher'])->middleware('is_senior');
 
     });
     
