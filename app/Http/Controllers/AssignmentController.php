@@ -5,8 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Assignment;
 use Illuminate\Http\Request;
 use App\Models\Classroom;
+use App\Models\Student;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+
 
 class AssignmentController extends Controller
 {
@@ -24,7 +29,20 @@ class AssignmentController extends Controller
             "classrooms" => $classes,
         ];
 
-        return view('admin.homework.homework', $data);
+        return view('teacher.homework.index', $data);
+    }
+
+    public function showStudentHomework($id, Request $request){
+        
+        $student = Student::find($id);
+        $howework = 1;
+
+        $data = [
+            'student' => $student,
+        ];
+
+        return view('parent.student.homework', $data);
+
     }
 
     /**
@@ -45,7 +63,35 @@ class AssignmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $resource = null;
+
+        if($request->file('file')){
+            $file= $request->file('file');
+            $extension= $request->file('file')->extension();
+            $filename= date('YmdHi').Str::random(6);
+            $resource= $filename.'.'.$extension;
+            $file-> move(public_path('assets/homework'), $resource);
+            
+        }
+
+
+        try{
+            $assignment = Assignment::create([
+                'subject' => $request->period,
+                'classroom_id' => $request->classroom,
+                'user_id' => Auth::id(),
+                'description' => $request->comments,
+                'resource' => $resource,
+            ]);
+
+            return redirect()->route('admin.homework.homework')->with('success', 'Homework was successfully added');
+        }
+        catch(Exception $e){
+            dd($e);
+            return redirect()->route('admin.homework.homework')->with('error', 'Erroe! Homework could not be added');
+
+        }
     }
 
     /**
@@ -66,7 +112,7 @@ class AssignmentController extends Controller
                        ->join('users', 'assignments.user_id', '=', 'users.id' )
                        ->where('assignments.classroom_id', '=', $classroom_id)
                        ->whereDate('assignments.created_at', '=',$current_date)
-                       ->select('users.first_name as firstname', 'users.last_name as lastname', 'assignments.*')
+                       ->select('users.first_name', 'users.last_name', 'assignments.*')
                        ->get();
 
 
@@ -77,7 +123,31 @@ class AssignmentController extends Controller
 
         ];
 
-        return view('admin.homework.homework-entry-sheet', $data);
+        return view('teacher.homework.show', $data);
+    }
+
+    public function showParent(Request $request){
+
+        $classroom = Classroom::find($request->classroom);
+        $current_date = date( 'Y-m-d', strtotime($request->date));
+
+
+        $assignments = DB::table('assignments')
+                       ->join('users', 'assignments.user_id', '=', 'users.id' )
+                       ->where('assignments.classroom_id', '=', $classroom->id)
+                       ->whereDate('assignments.created_at', '=', $current_date)
+                       ->select('users.first_name', 'users.last_name', 'assignments.*')
+                       ->get();
+
+
+        $data = [
+            'classroom' => $classroom,
+            'assignments' => $assignments,
+            'date' => $current_date,
+
+        ];
+
+        return view('parent.homework_view', $data);
     }
     
 

@@ -45,8 +45,9 @@
     $user = Auth::User();
     @endphp
     <nav class="fixed flex top-0 w-full bg-blue-strath h-16 z-50">
-        <div class="h-full w-24 flex justify-center">
-            <img class="object-contain w-12" src="{{asset('assets/Starthmore-Logo-Colour-new.gif')}}" alt="">
+        <div class="h-full w-24 flex justify-center items-center">
+            <a href="/"><img class="object-contain w-12" src="{{asset('assets/Starthmore-Logo-Colour-new.gif')}}"
+                    alt=""></a>
         </div>
 
         <div class="text-white ml-5 md:flex flex-col justify-center hidden">

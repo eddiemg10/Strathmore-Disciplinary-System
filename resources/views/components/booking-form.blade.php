@@ -122,40 +122,41 @@
         });
 
         $("#submit-btn").click(function(e){
-            $("#booking-form").validate();
             e.preventDefault();
 
+            if($("#booking-form").valid()){
 
-            $.ajax({
-                url: "{{route('book')}}",
-                type:"POST",
-                data:{
-                    "_token": "{{ csrf_token() }}",
-                    students:JSON.stringify(students),
-                    period:$('#period').val(),
-                    comments:$('#comments').val(),
-                },
-                success:function(response){
-                    // $('#successMsg').show();
+                $.ajax({
+                    url: "{{route('book')}}",
+                    type:"POST",
+                    data:{
+                        "_token": "{{ csrf_token() }}",
+                        students:JSON.stringify(students),
+                        period:$('#period').val(),
+                        comments:$('#comments').val(),
+                    },
+                    success:function(response){
+                        // $('#successMsg').show();
 
-                    if(response.success){
-                        $("#success").show();
-                    }
+                        if(response.success){
+                            $("#success").show();
+                        }
 
-                    if(response.error){
-                        $("#error").show();
+                        if(response.error){
+                            $("#error").show();
 
-                    }
-                    clearForm();
+                        }
+                        clearForm();
 
-                },
-                error: function(response) {
-                    $('#nameErrorMsg').text(response.responseJSON.errors.name);
-                    $('#emailErrorMsg').text(response.responseJSON.errors.email);
-                    $('#mobileErrorMsg').text(response.responseJSON.errors.mobile);
-                    $('#messageErrorMsg').text(response.responseJSON.errors.message);
-                },
-            });
+                    },
+                    error: function(response) {
+                        $('#nameErrorMsg').text(response.responseJSON.errors.name);
+                        $('#emailErrorMsg').text(response.responseJSON.errors.email);
+                        $('#mobileErrorMsg').text(response.responseJSON.errors.mobile);
+                        $('#messageErrorMsg').text(response.responseJSON.errors.message);
+                    },
+                });
+            }
 
         });
 

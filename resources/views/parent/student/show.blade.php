@@ -25,7 +25,7 @@
                 <p class="hover: cursor-pointer">Disipline Record</p>
             </div>
             <div class=" w-[50%] flex flex-col items-center">
-                <a href="#" class="hover: cursor-pointer">Homework</a>
+                <a href={{route('parent.homework', ['id'=>$student->id])}} class="hover: cursor-pointer">Homework</a>
             </div>
 
         </div>

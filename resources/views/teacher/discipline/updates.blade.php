@@ -89,7 +89,7 @@
         <div class="flex flex-col items-start w-full px-20 mt-20">
 
             <h1 class="text-3xl text-zinc-600 font-semibold">Suspension</h1>
-            <p class="mt-5 text-zinc-600">The following students have a total of more than 8 disciplinary bookings and
+            <p class="mt-5 text-zinc-600">The following students have a total of more than 12 disciplinary bookings and
                 require further disciplinary action</p>
 
             <div class="mt-10 ml-10 flex flex-col gap-y-4">

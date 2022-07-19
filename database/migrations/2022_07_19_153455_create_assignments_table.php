@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAssignmentsTableOld extends Migration
+class CreateAssignmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,6 +17,7 @@ class CreateAssignmentsTableOld extends Migration
             $table->id();
             $table->string('subject');
             $table->foreignId('classroom_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->string('description');
             $table->string('resource')->nullable();
             $table->timestamps();

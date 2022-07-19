@@ -108,6 +108,12 @@ Route::middleware(['auth'])->group(function(){
         })->name('parent');
 
         Route::get('/{id}/discipline', [StudentController::class, 'showStudentRecord'])->middleware('belongs_to_parent')->name('parent.records');
+
+        Route::get('/{id}/homework', [AssignmentController::class, 'showStudentHomework'])->middleware('belongs_to_parent')->name('parent.homework');
+
+        Route::get('/homework', [AssignmentController::class, 'showParent'])->name('parent.showHomework');
+
+
     });
 
     Route::group(['prefix' => 'teacher', 'middleware' => ['is_teacher']], function(){
@@ -138,6 +144,8 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/detentionlist', [BookingController::class, 'createBookingList'])->name('detentionPDF')->middleware('is_senior');
 
         Route::get('/homework', [AssignmentController::class, 'index'])->name('admin.homework.homework');
+
+        Route::post('/homework', [AssignmentController::class, 'store'])->name('homework.add');
 
         Route::get('/homework/{classroom}', [AssignmentController::class, 'show'])->name('admin.showHomework');
 
